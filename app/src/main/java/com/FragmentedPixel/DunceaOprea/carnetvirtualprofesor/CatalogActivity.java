@@ -80,6 +80,12 @@ public class CatalogActivity extends AppCompatActivity
         gradesList.add(new Grades("ID", 10, "Materie5", Calendar.getInstance().getTime()));
         gradesList.add(new Grades("ID", 10, "Materie6", Calendar.getInstance().getTime()));
 
+        presenecesList.add(new Presences("ID", Calendar.getInstance().getTime(), "Materie2", true));
+        presenecesList.add(new Presences("ID", Calendar.getInstance().getTime(), "Materie3", false));
+        presenecesList.add(new Presences("ID", Calendar.getInstance().getTime(), "Materie1", true));
+        presenecesList.add(new Presences("ID", Calendar.getInstance().getTime(), "Materie3", false));
+        presenecesList.add(new Presences("ID", Calendar.getInstance().getTime(), "Materie1", true));
+
 
         gradesNames = new ArrayList<>();
         presencesNames = new ArrayList<>();
