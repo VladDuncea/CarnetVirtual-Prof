@@ -133,7 +133,7 @@ public class CatalogActivity extends AppCompatActivity
         ListView lv1 = (ListView) findViewById(R.id.lv1);
         ListView lv2 = (ListView) findViewById(R.id.lv2);
 
-
+        //s
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, gradesNames);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, presencesNames);
 
