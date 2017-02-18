@@ -8,12 +8,12 @@ import java.util.Date;
 
 public class Presences
 {
-    public String PID;
+    public int PID;
     public Date PDate;
     public String PSBName;
     public boolean PValue;
 
-    public Presences(String PID, Date PDate, String PSBName, boolean PValue)
+    public Presences(int PID, Date PDate, String PSBName, boolean PValue)
     {
         this.PID = PID;
         this.PDate = PDate;

@@ -1,6 +1,7 @@
 package com.FragmentedPixel.DunceaOprea.carnetvirtualprofesor;
 
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,8 +10,19 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class CatalogActivity extends AppCompatActivity
 {
@@ -44,7 +56,8 @@ public class CatalogActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-                GetData();
+                int STID =Teacher.teacher.selectedClass.students.get(position).stID;
+                GetData(STID);
                 RefreshLists();
             }
 
@@ -55,47 +68,62 @@ public class CatalogActivity extends AppCompatActivity
         });
     }
 
-    private void GetData()
+    private void GetData(Integer STID)
     {
-        gradesList = new ArrayList<>();
-        presenecesList = new ArrayList<>();
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    if(!jsonResponse.getBoolean("success"))
+                    {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(CatalogActivity.this);
+                        alert.setMessage("Maintenance").setNegativeButton("Inapoi",null).create().show();
+                    }
+                    boolean success = jsonResponse.getBoolean("success");
+                    if(success){
 
-        //TODO: PLS FILL LISTS WITH INFORMATION #REZIST
-        //TODO: HAI PONTA INAPOI CA GLUMEAM
-        //TODO: I want my grinzi back
+                        Integer Grade_nr = jsonResponse.getInt("Grade_nr");
+                        Integer Presence_nr = jsonResponse.getInt("Presence_nr");
 
-        //TODO: O Vlad frumos, O Vlad frumos
+                        for(int i=0;i<Presence_nr;i++)
+                        {
+                            JSONObject presence = jsonResponse.getJSONObject("Presence"+i);
+                            String PDate = presence.getString("PDate");
+                            DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
+                            Date date = format.parse(PDate);
+                            Boolean PValue = presence.getBoolean("PValue");
+                            Integer PID = presence.getInt("PID");
+                            presenecesList.add(new Presences(PID, date, Teacher.teacher.selectedSubject, PValue));
+                        }
 
-        //TODO: O Vlad frumos, o Vlad frumos cum te tii tu tot verde
-        //TODO: Il fac frumos, torn un spumos, lipsesc doar niste fete
-        //TODO: O Vlad frumos, o Vlad frumos, ce bine e cu tine
-        //TODO: Dar nu fi prost, nu nu fi prost, tu n-o sa vezi cand vine
+                        for(int i=0;i<Grade_nr;i++)
+                        {
+                            JSONObject grade = jsonResponse.getJSONObject("Grade"+i);
+                            String GDate = grade.getString("GDate");
+                            DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
+                            Date date = format.parse(GDate);
+                            Integer GValue = grade.getInt("GValue");
+                            Integer GID = grade.getInt("GID");
+                            gradesList.add(new Grades(GID, GValue,Teacher.teacher.selectedSubject, date));
+                        }
 
-        //TODO: Pls call me maybe 0757106250
+                    }
+                    else{
+                        AlertDialog.Builder alert = new AlertDialog.Builder(CatalogActivity.this);
+                        alert.setMessage("Eroare").setNegativeButton("Inapoi",null).create().show();
+                    }
+                } catch (JSONException | ParseException e) {
+                    e.printStackTrace();
+                }
 
-        gradesList.add(new Grades("ID", 10, "Materie1", Calendar.getInstance().getTime()));
-        gradesList.add(new Grades("ID", 10, "Materie2", Calendar.getInstance().getTime()));
-        gradesList.add(new Grades("ID", 10, "Materie3", Calendar.getInstance().getTime()));
-        gradesList.add(new Grades("ID", 10, "Materie4", Calendar.getInstance().getTime()));
-        gradesList.add(new Grades("ID", 10, "Materie5", Calendar.getInstance().getTime()));
-        gradesList.add(new Grades("ID", 10, "Materie6", Calendar.getInstance().getTime()));
+            }
+        };
 
-        presenecesList.add(new Presences("ID", Calendar.getInstance().getTime(), "Materie2", true));
-        presenecesList.add(new Presences("ID", Calendar.getInstance().getTime(), "Materie3", false));
-        presenecesList.add(new Presences("ID", Calendar.getInstance().getTime(), "Materie1", true));
-        presenecesList.add(new Presences("ID", Calendar.getInstance().getTime(), "Materie3", false));
-        presenecesList.add(new Presences("ID", Calendar.getInstance().getTime(), "Materie1", true));
+        _Catalog_Update catalog_Request = new _Catalog_Update(STID.toString(),Teacher.teacher.selectedSubject,responseListener);
+        RequestQueue catalog_Queue = Volley.newRequestQueue(CatalogActivity.this);
+        catalog_Queue.add(catalog_Request);
 
-
-        gradesNames = new ArrayList<>();
-        presencesNames = new ArrayList<>();
-
-
-        for(Grades g: gradesList)
-            gradesNames.add(g.GValue + "/" + g.SbName);
-
-        for(Presences p: presenecesList)
-            presencesNames.add(p.PValue + "/" + p.PSBName);
 
 
     }

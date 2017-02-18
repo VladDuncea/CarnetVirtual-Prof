@@ -9,12 +9,12 @@ import java.util.Date;
 
 public class Grades
 {
-    public String GID;
+    public int GID;
     public int GValue;
     public String SbName;
     public Date GDate;
 
-    public Grades(String GID, int GValue, String SbName, Date GDate)
+    public Grades(int GID, int GValue, String SbName, Date GDate)
     {
         this.GID = GID;
         this.GValue = GValue;

@@ -98,7 +98,7 @@ public class GradesActivity extends AppCompatActivity {
                         boolean success = jsonResponse.getBoolean("success");
                         if (success) {
 
-                            Toast.makeText(GradesActivity.this, "Succes", Toast.LENGTH_LONG).show();
+                            Toast.makeText(GradesActivity.this, "Succes", Toast.LENGTH_SHORT).show();
 
                         } else {
                             AlertDialog.Builder alert = new AlertDialog.Builder(GradesActivity.this);
