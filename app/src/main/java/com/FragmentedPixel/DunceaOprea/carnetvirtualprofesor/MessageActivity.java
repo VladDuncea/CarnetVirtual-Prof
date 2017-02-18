@@ -21,6 +21,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,9 +30,9 @@ import java.util.Locale;
 
 public class MessageActivity extends AppCompatActivity {
 
-
+    private String ExpireDate;
     private EditText edittext;
-    private int type;
+    private Integer type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -89,10 +90,10 @@ public class MessageActivity extends AppCompatActivity {
 
     private void updateLabel() {
 
-        String myFormat = "MM/dd/yy"; //In which you need put here
+        String myFormat = "yyyy-MM-dd HH-mm";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
 
-        edittext.setText(sdf.format(myCalendar.getTime()));
+        ExpireDate =sdf.format(myCalendar.getTime());
     }
 
 
@@ -111,7 +112,7 @@ public class MessageActivity extends AppCompatActivity {
         messageTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                type = position;
+                type = position+1;
             }
 
             @Override
@@ -158,7 +159,7 @@ public class MessageActivity extends AppCompatActivity {
         String TID = Teacher.teacher.TID;
         String Name = Teacher.teacher.Name;
 
-        _Chat_Upload chat_Request = new _Chat_Upload(message,CID,TID,Name,"1","1",responseListener);
+        _Chat_Upload chat_Request = new _Chat_Upload(message,CID,TID,Name,type.toString(),ExpireDate,responseListener);
         RequestQueue chat_Queue = Volley.newRequestQueue(MessageActivity.this);
         chat_Queue.add(chat_Request);
 
