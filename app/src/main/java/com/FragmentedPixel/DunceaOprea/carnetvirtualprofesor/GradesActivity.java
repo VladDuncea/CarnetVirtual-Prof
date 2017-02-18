@@ -80,9 +80,9 @@ public class GradesActivity extends AppCompatActivity {
         Date dateNow =  Calendar.getInstance().getTime();
         EditText text_nota = (EditText) findViewById(R.id.nota_editText);
         String nota = text_nota.getText().toString();
-        Toast.makeText(this, nota, Toast.LENGTH_SHORT).show();
-        text_nota.setText("");
-        if(nota=="")
+        //Toast.makeText(this, nota, Toast.LENGTH_SHORT).show();
+        //text_nota.setText("");
+        if(nota.equals(""))
             Toast.makeText(this, "Introduceti o nota", Toast.LENGTH_SHORT).show();
         else
         {

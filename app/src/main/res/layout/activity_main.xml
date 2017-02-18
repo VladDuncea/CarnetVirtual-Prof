@@ -55,10 +55,11 @@
         android:background="#D0D0D0"
         android:layout_width="wrap_content"
         android:spinnerMode="dialog"
-        android:minWidth="200dp"
+        android:minWidth="150dp"
         android:minHeight="50dp"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical" />
 
     <Spinner
         android:layout_height="wrap_content"
@@ -66,9 +67,10 @@
         android:background="#D0D0D0"
         android:layout_width="wrap_content"
         android:spinnerMode="dialog"
-        android:minWidth="200dp"
+        android:minWidth="150dp"
         android:minHeight="50dp"
         android:layout_above="@+id/classes_spinner"
-        android:layout_alignStart="@+id/classes_spinner" />
+        android:layout_alignStart="@+id/classes_spinner"
+        android:gravity="center_vertical" />
 
 </RelativeLayout>
