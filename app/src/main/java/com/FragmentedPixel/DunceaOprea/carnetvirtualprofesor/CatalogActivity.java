@@ -30,9 +30,6 @@ public class CatalogActivity extends AppCompatActivity
     private ArrayList<Grades> gradesList;
     private ArrayList<Presences> presenecesList;
 
-    private ArrayList<String> gradesNames;
-    private ArrayList<String> presencesNames;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +80,9 @@ public class CatalogActivity extends AppCompatActivity
                     boolean success = jsonResponse.getBoolean("success");
                     if(success){
 
+                        presenecesList = new ArrayList<>();
+                        gradesList = new ArrayList<>();
+
                         Integer Grade_nr = jsonResponse.getInt("Grade_nr");
                         Integer Presence_nr = jsonResponse.getInt("Presence_nr");
 
@@ -94,6 +94,7 @@ public class CatalogActivity extends AppCompatActivity
                             Date date = format.parse(PDate);
                             Boolean PValue = presence.getBoolean("PValue");
                             Integer PID = presence.getInt("PID");
+
                             presenecesList.add(new Presences(PID, date, Teacher.teacher.selectedSubject, PValue));
                         }
 
@@ -105,6 +106,7 @@ public class CatalogActivity extends AppCompatActivity
                             Date date = format.parse(GDate);
                             Integer GValue = grade.getInt("GValue");
                             Integer GID = grade.getInt("GID");
+
                             gradesList.add(new Grades(GID, GValue,Teacher.teacher.selectedSubject, date));
                         }
 
@@ -125,7 +127,6 @@ public class CatalogActivity extends AppCompatActivity
         catalog_Queue.add(catalog_Request);
 
 
-
     }
 
     private void RefreshLists()
@@ -133,18 +134,18 @@ public class CatalogActivity extends AppCompatActivity
         ListView lv1 = (ListView) findViewById(R.id.lv1);
         ListView lv2 = (ListView) findViewById(R.id.lv2);
 
-        //s
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, gradesNames);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, presencesNames);
+        GradesAdapter adapter = new GradesAdapter(this, gradesList);
+        PresencesAdapter adapter1 = new PresencesAdapter(this, presenecesList);
 
-        lv1.setAdapter(adapter1);
-        lv2.setAdapter(adapter2);
+        Toast.makeText(this, gradesList.get(0).SbName, Toast.LENGTH_SHORT).show();
+
+        //lv1.setAdapter(adapter);
+        //lv2.setAdapter(adapter1);
 
         lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                gradesNames.remove(position);
                 RemoveGrade(gradesList.get(position));
             }
         });
@@ -153,7 +154,6 @@ public class CatalogActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                presencesNames.remove(position);
                 RemovePresence(presenecesList.get(position));
             }
         });
@@ -161,16 +161,19 @@ public class CatalogActivity extends AppCompatActivity
 
     private void RemoveGrade(Grades g)
     {
-        Toast.makeText(CatalogActivity.this, "Remove grade with GID = " + g.GID, Toast.LENGTH_SHORT).show();
+        Toast.makeText(CatalogActivity.this, "Nota cu ID-ul trebuie stearsa " + g.GID, Toast.LENGTH_SHORT).show();
         gradesList.remove(g);
+        //TODO: PLS remove from database
         RefreshLists();
     }
 
-    private void RemovePresence(Presences p)
-    {
-        Toast.makeText(CatalogActivity.this, "Remove presence with PID = " + p.PID, Toast.LENGTH_SHORT).show();
-        presenecesList.remove(p);
-        RefreshLists();
+    private void RemovePresence(Presences p) {
+        if (!p.PValue) {
+            Toast.makeText(CatalogActivity.this, "Absenta cu ID-ul trebuie movitata " + p.PID, Toast.LENGTH_SHORT).show();
+            p.PValue = true;
+            //TODO: moviteaza in baza de date pls
+            RefreshLists();
+        }
     }
 }
 
