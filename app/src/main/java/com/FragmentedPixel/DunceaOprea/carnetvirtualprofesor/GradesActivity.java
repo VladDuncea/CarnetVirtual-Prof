@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class GradesActivity extends AppCompatActivity {
 
@@ -79,40 +80,45 @@ public class GradesActivity extends AppCompatActivity {
         Date dateNow =  Calendar.getInstance().getTime();
         EditText text_nota = (EditText) findViewById(R.id.nota_editText);
         String nota = text_nota.getText().toString();
+        Toast.makeText(this, nota, Toast.LENGTH_SHORT).show();
         text_nota.setText("");
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    if(!jsonResponse.getBoolean("success"))
-                    {
-                        AlertDialog.Builder alert = new AlertDialog.Builder(GradesActivity.this);
-                        alert.setMessage("Maintenance").setNegativeButton("Inapoi",null).create().show();
-                    }
-                    boolean success = jsonResponse.getBoolean("success");
-                    if(success){
+        if(nota=="")
+            Toast.makeText(this, "Introduceti o nota", Toast.LENGTH_SHORT).show();
+        else
+        {
+            Response.Listener<String> responseListener = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        if (!jsonResponse.getBoolean("success")) {
+                            AlertDialog.Builder alert = new AlertDialog.Builder(GradesActivity.this);
+                            alert.setMessage("Maintenance").setNegativeButton("Inapoi", null).create().show();
+                        }
+                        boolean success = jsonResponse.getBoolean("success");
+                        if (success) {
 
-                        Toast.makeText(GradesActivity.this,"Succes",Toast.LENGTH_LONG).show();
+                            Toast.makeText(GradesActivity.this, "Succes", Toast.LENGTH_LONG).show();
 
+                        } else {
+                            AlertDialog.Builder alert = new AlertDialog.Builder(GradesActivity.this);
+                            alert.setMessage("Eroare").setNegativeButton("Inapoi", null).create().show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    else{
-                        AlertDialog.Builder alert = new AlertDialog.Builder(GradesActivity.this);
-                        alert.setMessage("Eroare").setNegativeButton("Inapoi",null).create().show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+
                 }
+            };
+            String TID = Teacher.teacher.TID;
+            String CValue = Teacher.teacher.selectedClass.CValue.toString();
+            String SBName = Teacher.teacher.selectedSubject;
+            SimpleDateFormat df = new SimpleDateFormat("YYYY/MM/dd HH:mm", Locale.getDefault());
 
-            }
-        };
-        String TID = Teacher.teacher.TID;
-        String CValue = Teacher.teacher.selectedClass.CValue.toString();
-        String SBName = Teacher.teacher.selectedSubject;
-        SimpleDateFormat df = new SimpleDateFormat("YYYY/MM/dd HH:mm", Locale.getDefault());
+            _Grade_Upload grade_Request = new _Grade_Upload(STID.toString(), nota, TID, SBName, df.format(dateNow), CValue, eTeza.toString(), responseListener);
+            RequestQueue grade_Queue = Volley.newRequestQueue(GradesActivity.this);
+            grade_Queue.add(grade_Request);
+        }
 
-        _Grade_Upload grade_Request = new _Grade_Upload(STID.toString(),nota,TID,SBName,df.format(dateNow),CValue,eTeza.toString(),responseListener);
-        RequestQueue grade_Queue = Volley.newRequestQueue(GradesActivity.this);
-        grade_Queue.add(grade_Request);
     }
 }
