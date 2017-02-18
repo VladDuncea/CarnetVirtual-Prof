@@ -55,7 +55,6 @@ public class CatalogActivity extends AppCompatActivity
             {
                 int STID =Teacher.teacher.selectedClass.students.get(position).stID;
                 GetData(STID);
-                RefreshLists();
             }
 
             @Override
@@ -110,6 +109,8 @@ public class CatalogActivity extends AppCompatActivity
                             gradesList.add(new Grades(GID, GValue,Teacher.teacher.selectedSubject, date));
                         }
 
+                        RefreshLists();
+
                     }
                     else{
                         AlertDialog.Builder alert = new AlertDialog.Builder(CatalogActivity.this);
@@ -137,10 +138,8 @@ public class CatalogActivity extends AppCompatActivity
         GradesAdapter adapter = new GradesAdapter(this, gradesList);
         PresencesAdapter adapter1 = new PresencesAdapter(this, presenecesList);
 
-        Toast.makeText(this, gradesList.get(0).SbName, Toast.LENGTH_SHORT).show();
-
-        //lv1.setAdapter(adapter);
-        //lv2.setAdapter(adapter1);
+        lv1.setAdapter(adapter);
+        lv2.setAdapter(adapter1);
 
         lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
