@@ -80,12 +80,12 @@ public class GradesActivity extends AppCompatActivity {
         Date dateNow =  Calendar.getInstance().getTime();
         EditText text_nota = (EditText) findViewById(R.id.nota_editText);
         String nota = text_nota.getText().toString();
-        //Toast.makeText(this, nota, Toast.LENGTH_SHORT).show();
-        //text_nota.setText("");
+        text_nota.setText("");
         if(nota.equals(""))
-            Toast.makeText(this, "Introduceti o nota", Toast.LENGTH_SHORT).show();
-        else
         {
+            Toast.makeText(this, "Introduceti o nota", Toast.LENGTH_SHORT).show();
+            return;
+        }
             Response.Listener<String> responseListener = new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -118,7 +118,6 @@ public class GradesActivity extends AppCompatActivity {
             _Grade_Upload grade_Request = new _Grade_Upload(STID.toString(), nota, TID, SBName, df.format(dateNow), CValue, eTeza.toString(), responseListener);
             RequestQueue grade_Queue = Volley.newRequestQueue(GradesActivity.this);
             grade_Queue.add(grade_Request);
-        }
 
     }
 }
