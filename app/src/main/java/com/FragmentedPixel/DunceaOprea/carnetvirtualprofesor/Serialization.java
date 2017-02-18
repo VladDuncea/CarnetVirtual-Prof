@@ -61,7 +61,6 @@ public class Serialization implements Serializable
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             serialization = (Serialization) objectInputStream.readObject();
             if(serialization!=null)
-            Toast.makeText(context, serialization.email + " " + serialization.password, Toast.LENGTH_SHORT).show();
 
             objectInputStream.close();
             fileInputStream.close();
