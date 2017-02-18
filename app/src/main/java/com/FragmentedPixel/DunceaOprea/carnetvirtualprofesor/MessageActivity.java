@@ -53,8 +53,6 @@ public class MessageActivity extends AppCompatActivity {
         });
 
         SpinnerSetUp();
-        edittext = (EditText) findViewById(R.id.date_editText);
-        SetEditText();
     }
 
     Calendar myCalendar = Calendar.getInstance();
@@ -73,27 +71,13 @@ public class MessageActivity extends AppCompatActivity {
 
     };
 
-    private void SetEditText()
-    {
-
-        edittext.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                new DatePickerDialog(MessageActivity.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-    }
 
     private void updateLabel() {
-
-        String myFormat = "yyyy-MM-dd HH-mm";
+        Button button = (Button)findViewById(R.id.button_date);
+        String myFormat = "yyyy-MM-dd HH:mm";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
-
         ExpireDate =sdf.format(myCalendar.getTime());
+        button.setText(ExpireDate);
     }
 
 
@@ -164,5 +148,12 @@ public class MessageActivity extends AppCompatActivity {
         chat_Queue.add(chat_Request);
 
 
+    }
+
+    public void date_set(View view)
+    {
+        new DatePickerDialog(MessageActivity.this, date, myCalendar
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 }
