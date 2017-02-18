@@ -106,7 +106,6 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
-    // TODO Oprea: Adauga un expire date la mesaj si tipul mesajului(1-simplu,2-test,3-teza)
 
     private void SendMessage()
     {
