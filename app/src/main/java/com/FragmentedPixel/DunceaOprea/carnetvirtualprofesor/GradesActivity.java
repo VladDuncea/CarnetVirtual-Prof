@@ -77,8 +77,9 @@ public class GradesActivity extends AppCompatActivity {
         Integer STID = Teacher.teacher.selectedClass.students.get(index).stID;
         Boolean eTeza = ((CheckBox) findViewById(R.id.teza_checkBox)).isChecked();
         Date dateNow =  Calendar.getInstance().getTime();
-        String nota = ((EditText) findViewById(R.id.nota_editText)).getText().toString();
-
+        EditText text_nota = (EditText) findViewById(R.id.nota_editText);
+        String nota = text_nota.getText().toString();
+        text_nota.setText("");
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -107,7 +108,7 @@ public class GradesActivity extends AppCompatActivity {
         };
         String TID = Teacher.teacher.TID;
         String CValue = Teacher.teacher.selectedClass.CValue.toString();
-        String SBName = Teacher.teacher.selectedClass.subjects.get(0);
+        String SBName = Teacher.teacher.selectedSubject;
         SimpleDateFormat df = new SimpleDateFormat("YYYY/MM/dd HH:mm", Locale.getDefault());
 
         _Grade_Upload grade_Request = new _Grade_Upload(STID.toString(),nota,TID,SBName,df.format(dateNow),CValue,eTeza.toString(),responseListener);
