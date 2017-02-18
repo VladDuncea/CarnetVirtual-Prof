@@ -34,7 +34,6 @@ public class Serialization implements Serializable
     {
         if(serialization != null) {
             try {
-                Toast.makeText(context, serialization.email + " " + serialization.password, Toast.LENGTH_SHORT).show();
                 FileOutputStream fileOutputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
                 objectOutputStream.writeObject(serialization);
