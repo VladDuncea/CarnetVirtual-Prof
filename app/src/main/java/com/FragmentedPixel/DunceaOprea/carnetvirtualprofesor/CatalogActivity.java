@@ -30,24 +30,25 @@ public class CatalogActivity extends AppCompatActivity
     private ArrayList<Grades> gradesList;
     private ArrayList<Presences> presenecesList;
 
-    private enum Pages {Grades, Presences, Messages};
-    private Pages selectedPage;
+    private enum Pages {Grades, Presences, Messages}
+    private Pages selectedPage=Pages.Grades;
 
-    ListView lv1 = (ListView) findViewById(R.id.lv1);
+    ListView lv1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
-
+        lv1 = (ListView) findViewById(R.id.lv1);
 
         lv1.setOnTouchListener(new OnSwipeTouchListener(CatalogActivity.this)
         {
             public void onSwipeRight()
             {
-                if(selectedPage == Pages.Grades)
+                if(selectedPage == Pages.Grades) {
                     RefreshLists(Pages.Presences);
-
+                    Toast.makeText(CatalogActivity.this, "Presences", Toast.LENGTH_SHORT).show();
+                }
                 else if(selectedPage == Pages.Presences)
                     RefreshLists(Pages.Messages);
 
