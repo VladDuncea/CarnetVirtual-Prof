@@ -125,8 +125,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-                String selectedClassName = subjectsSpinner.getSelectedItem().toString();
-                Teacher.teacher.selectedSubject = selectedClassName;
+                Teacher.teacher.selectedSubject = subjectsSpinner.getSelectedItem().toString();
 
             }
 

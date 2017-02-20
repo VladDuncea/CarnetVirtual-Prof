@@ -1,11 +1,15 @@
 package com.FragmentedPixel.DunceaOprea.carnetvirtualprofesor;
 
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ButtonBarLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -22,6 +26,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Locale;
 
 public class CatalogActivity extends AppCompatActivity
@@ -30,30 +35,104 @@ public class CatalogActivity extends AppCompatActivity
     private ArrayList<Grades> gradesList;
     private ArrayList<Presences> presenecesList;
 
+    private enum Pages {Grades, Presences, Messages};
+
+    ListView lv1 = (ListView) findViewById(R.id.lv1);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
-
-        ListView lv1 = (ListView) findViewById(R.id.lv1);
+        /*
         lv1.setOnTouchListener(new OnSwipeTouchListener(CatalogActivity.this)
         {
-            public void onSwipeTop() {
-                Toast.makeText(CatalogActivity.this, "top", Toast.LENGTH_SHORT).show();
-            }
             public void onSwipeRight() {
-                Toast.makeText(CatalogActivity.this, "right", Toast.LENGTH_SHORT).show();
+                if(selectedPage == Pages.Grades)
+                    RefreshLists(Pages.Presences);
+
+                else if(selectedPage == Pages.Presences)
+                    RefreshLists(Pages.Messages);
+
+                else
+                    RefreshLists(Pages.Grades);
             }
             public void onSwipeLeft() {
-                Toast.makeText(CatalogActivity.this, "left", Toast.LENGTH_SHORT).show();
-            }
-            public void onSwipeBottom() {
-                Toast.makeText(CatalogActivity.this, "bottom", Toast.LENGTH_SHORT).show();
+
             }
         }
         );
+        */
+
+        Button btGrades = (Button) findViewById(R.id.button_date);
+        btGrades.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RefreshLists(Pages.Grades);
+            }
+        });
+
+        Button btPreseneces = (Button) findViewById(R.id.button_date);
+        btPreseneces.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RefreshLists(Pages.Presences);
+            }
+        });
+
+        Button btMessages = (Button) findViewById(R.id.button_date);
+        btMessages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RefreshLists(Pages.Messages);
+            }
+        });
+
         SetStudentsSpinner();
+    }
+
+
+    private void ToGrades()
+    {
+        GradesAdapter adapter = new GradesAdapter(this, gradesList);
+        lv1.setAdapter(adapter);
+
+        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                RemoveGrade(gradesList.get(position));
+            }
+        });
+    }
+
+    private void ToPresences()
+    {
+        PresencesAdapter adapter = new PresencesAdapter(this, presenecesList);
+        lv1.setAdapter(adapter);
+
+        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                RemovePresence(presenecesList.get(position));
+            }
+        });
+    }
+
+    //TODO: Add grades Adapter
+    private void ToMessages()
+    {
+        GradesAdapter adapter = new GradesAdapter(this, gradesList);
+        lv1.setAdapter(adapter);
+
+        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                RemoveGrade(gradesList.get(position));
+            }
+        });
     }
 
     private void SetStudentsSpinner()
@@ -127,7 +206,7 @@ public class CatalogActivity extends AppCompatActivity
                             gradesList.add(new Grades(GID, GValue,Teacher.teacher.selectedSubject, date));
                         }
 
-                        RefreshLists();
+                        RefreshLists(Pages.Grades);
 
                     }
                     else{
@@ -148,32 +227,14 @@ public class CatalogActivity extends AppCompatActivity
 
     }
 
-    private void RefreshLists()
+    private void RefreshLists(Pages p)
     {
-        ListView lv1 = (ListView) findViewById(R.id.lv1);
-        ListView lv2 = (ListView) findViewById(R.id.lv2);
-
-        GradesAdapter adapter = new GradesAdapter(this, gradesList);
-        PresencesAdapter adapter1 = new PresencesAdapter(this, presenecesList);
-
-        lv1.setAdapter(adapter);
-        lv2.setAdapter(adapter1);
-
-        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                RemoveGrade(gradesList.get(position));
-            }
-        });
-
-        lv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                RemovePresence(presenecesList.get(position));
-            }
-        });
+        if(p ==  Pages.Grades)
+            ToGrades();
+        else if(p == Pages.Presences)
+            ToPresences();
+        else if(p == Pages.Messages)
+            ToMessages();
     }
 
     private void RemoveGrade(Grades g)
@@ -181,7 +242,7 @@ public class CatalogActivity extends AppCompatActivity
         Toast.makeText(CatalogActivity.this, "Nota cu ID-ul trebuie stearsa " + g.GID, Toast.LENGTH_SHORT).show();
         gradesList.remove(g);
         //TODO: PLS remove from database
-        RefreshLists();
+        RefreshLists(Pages.Grades);
     }
 
     private void RemovePresence(Presences p) {
@@ -189,7 +250,7 @@ public class CatalogActivity extends AppCompatActivity
             Toast.makeText(CatalogActivity.this, "Absenta cu ID-ul trebuie movitata " + p.PID, Toast.LENGTH_SHORT).show();
             p.PValue = true;
             //TODO: moviteaza in baza de date pls
-            RefreshLists();
+            RefreshLists(Pages.Presences);
         }
     }
 }
