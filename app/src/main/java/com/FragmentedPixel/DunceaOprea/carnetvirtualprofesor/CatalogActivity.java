@@ -35,6 +35,24 @@ public class CatalogActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
+
+        ListView lv1 = (ListView) findViewById(R.id.lv1);
+        lv1.setOnTouchListener(new OnSwipeTouchListener(CatalogActivity.this)
+        {
+            public void onSwipeTop() {
+                Toast.makeText(CatalogActivity.this, "top", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeRight() {
+                Toast.makeText(CatalogActivity.this, "right", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeLeft() {
+                Toast.makeText(CatalogActivity.this, "left", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeBottom() {
+                Toast.makeText(CatalogActivity.this, "bottom", Toast.LENGTH_SHORT).show();
+            }
+        }
+        );
         SetStudentsSpinner();
     }
 
