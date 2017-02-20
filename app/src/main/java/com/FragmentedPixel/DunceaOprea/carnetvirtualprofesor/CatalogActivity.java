@@ -1,15 +1,11 @@
 package com.FragmentedPixel.DunceaOprea.carnetvirtualprofesor;
 
-import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ButtonBarLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -26,7 +22,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.Locale;
 
 public class CatalogActivity extends AppCompatActivity

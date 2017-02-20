@@ -3,18 +3,14 @@ package com.FragmentedPixel.DunceaOprea.carnetvirtualprofesor;
 
 import java.util.Date;
 
-/**
- * Created by oalex on 2017-02-14 .
- */
-
-public class Grades
+class Grades
 {
-    public int GID;
-    public int GValue;
-    public String SbName;
-    public Date GDate;
+    int GID;
+    int GValue;
+    String SbName;
+    Date GDate;
 
-    public Grades(int GID, int GValue, String SbName, Date GDate)
+    Grades(int GID, int GValue, String SbName, Date GDate)
     {
         this.GID = GID;
         this.GValue = GValue;

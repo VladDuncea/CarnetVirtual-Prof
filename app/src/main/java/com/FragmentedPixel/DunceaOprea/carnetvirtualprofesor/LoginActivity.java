@@ -38,13 +38,11 @@ public class LoginActivity extends Activity
     {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        // Test for connection
-        if (netInfo!= null && netInfo.isConnectedOrConnecting()) {}
-        else {
 
+        if (! (netInfo!= null && netInfo.isConnectedOrConnecting()))
+        {
             AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
             alert.setMessage("Conexiune la internet inexistenta.").setNegativeButton("Inapoi",null).create().show();
-            // No conection
             return;
         }
 
@@ -67,6 +65,7 @@ public class LoginActivity extends Activity
             }
         }).start();
     }
+
 
     private void LogIn() {
 

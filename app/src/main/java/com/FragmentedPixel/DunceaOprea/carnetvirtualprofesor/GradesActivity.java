@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 
 public class GradesActivity extends AppCompatActivity {
 
@@ -73,8 +72,6 @@ public class GradesActivity extends AppCompatActivity {
         Spinner studentsSpinner = (Spinner) findViewById(R.id.students_Spinner);
         int index = studentsSpinner.getSelectedItemPosition();
 
-        /* Informatii utile*/    //TODO Note sub 11 si peste 0
-        String result = Teacher.teacher.selectedClass.students.get(index).stName + " " + Teacher.teacher.selectedClass.students.get(index).stForname;
         Integer STID = Teacher.teacher.selectedClass.students.get(index).stID;
         Boolean eTeza = ((CheckBox) findViewById(R.id.teza_checkBox)).isChecked();
         Date dateNow =  Calendar.getInstance().getTime();

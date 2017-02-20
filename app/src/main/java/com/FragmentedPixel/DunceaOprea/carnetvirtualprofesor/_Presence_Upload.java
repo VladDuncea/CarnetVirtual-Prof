@@ -7,16 +7,12 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by vlad_ on 14.02.2017.
- */
-
-public class _Presence_Upload extends StringRequest{
+class _Presence_Upload extends StringRequest{
 
     private static final String Site_URL_Login = "http://carnet-virtual.victoriacentre.ro/presence_upload_prof.php";
     private Map<String, String> params;
-    //Vlad
-    public _Presence_Upload(String STID, String CValue,String TID,String SBName,String PDate,Response.Listener<String> listener) {
+
+    _Presence_Upload(String STID, String CValue, String TID, String SBName, String PDate, Response.Listener<String> listener) {
         super(Request.Method.POST, Site_URL_Login, listener, null);
         String AccessCode = "242424";
         params = new HashMap<>();

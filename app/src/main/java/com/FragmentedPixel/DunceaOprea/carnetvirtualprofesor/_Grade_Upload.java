@@ -7,15 +7,12 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by vlad_ on 14.02.2017.
- */
 
-public class _Grade_Upload extends StringRequest{
+class _Grade_Upload extends StringRequest{
     private static final String Site_URL_Login = "http://carnet-virtual.victoriacentre.ro/grade_upload_prof.php";
     private Map<String, String> params;
-//asasd
-    public _Grade_Upload(String STID, String GValue,String TID,String SBName,String GDate,String CValue,String GSemester,Response.Listener<String> listener) {
+
+    _Grade_Upload(String STID, String GValue, String TID, String SBName, String GDate, String CValue, String GSemester, Response.Listener<String> listener) {
         super(Request.Method.POST, Site_URL_Login, listener, null);
         String AccessCode = "565656";
         params = new HashMap<>();

@@ -6,15 +6,11 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by vlad_ on 12.02.2017.
- */
-
-public class _Login_Request extends StringRequest {
+class _Login_Request extends StringRequest {
     private static final String Site_URL_Login = "http://carnet-virtual.victoriacentre.ro/login_request_prof.php";
     private Map<String, String> params;
 
-    public _Login_Request(String Email, String Password, Response.Listener<String> listener) {
+    _Login_Request(String Email, String Password, Response.Listener<String> listener) {
         super(Method.POST, Site_URL_Login, listener, null);
         String AccessCode = "323232";
         params = new HashMap<>();
