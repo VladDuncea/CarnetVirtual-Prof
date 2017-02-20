@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-class _Grade_Upload extends StringRequest{
+class _Grade_Upload extends StringRequest
+{
     private static final String Site_URL_Login = "http://carnet-virtual.victoriacentre.ro/grade_upload_prof.php";
     private Map<String, String> params;
 

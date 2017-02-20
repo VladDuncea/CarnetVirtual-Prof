@@ -3,7 +3,6 @@ package com.FragmentedPixel.DunceaOprea.carnetvirtualprofesor;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -14,9 +13,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by vlad_ on 12.02.2017.
- */
 
 public class Refresh {
     public static void LogIn(final Context context, final String Email, final String Password) {
@@ -84,7 +80,7 @@ public class Refresh {
                                     teacherStudent.add(new Student(STName,STFirstName,STID));
                                 }
 
-                                teacherClasses.add(new Classes(CID,CValue,CName,classesSubject,teacherStudent));
+                                teacherClasses.add(new Classes(CID,CValue,CName,CMaster,classesSubject,teacherStudent));
                             }
                             new Teacher(TID,TName,TFirstName,TIsMaster,teacherClasses);
                             context.startActivity(new Intent(context, MainActivity.class));

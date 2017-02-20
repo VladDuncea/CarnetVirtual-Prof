@@ -47,7 +47,7 @@ public class CatalogActivity extends AppCompatActivity
             {
                 if(selectedPage == Pages.Grades) {
                     RefreshLists(Pages.Presences);
-                    Toast.makeText(CatalogActivity.this, "Presences", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(CatalogActivity.this, "Presences", Toast.LENGTH_SHORT).show();
                 }
                 else if(selectedPage == Pages.Presences)
                     RefreshLists(Pages.Messages);
@@ -108,7 +108,7 @@ public class CatalogActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                RemoveGrade(gradesList.get(position));
+                Remove(null,gradesList.get(position));
             }
         });
     }
@@ -122,12 +122,12 @@ public class CatalogActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                RemovePresence(presenecesList.get(position));
+                Remove(presenecesList.get(position),null);
             }
         });
     }
 
-    //TODO: Add grades Adapter
+    //TODO: Add Messages Adapter
     private void ToMessages()
     {
         GradesAdapter adapter = new GradesAdapter(this, gradesList);
@@ -137,7 +137,7 @@ public class CatalogActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                RemoveGrade(gradesList.get(position));
+                Remove(null,gradesList.get(position));
             }
         });
     }
@@ -246,22 +246,76 @@ public class CatalogActivity extends AppCompatActivity
             ToMessages();
     }
 
-    private void RemoveGrade(Grades g)
+    private void Remove(Presences p,Grades g)
     {
-        Toast.makeText(CatalogActivity.this, "Nota cu ID-ul trebuie stearsa " + g.GID, Toast.LENGTH_SHORT).show();
-        gradesList.remove(g);
-        //TODO: PLS remove from database
-        RefreshLists(Pages.Grades);
+        Integer ID=0;
+        String Type;
+
+        if(p!=null)
+        {
+            if (!p.PValue) {
+                Toast.makeText(CatalogActivity.this, "Absenta cu ID-ul trebuie movitata " + p.PID, Toast.LENGTH_SHORT).show();
+                p.PValue = true;
+
+                ID = p.PID;
+                Type = "Presence";
+            }
+            else
+            {
+                return;
+            }
+        }
+        else
+        {
+            Toast.makeText(CatalogActivity.this, "Nota cu ID-ul trebuie stearsa " + g.GID, Toast.LENGTH_SHORT).show();
+            gradesList.remove(g);
+
+            ID = g.GID;
+            Type = "Grade";
+        }
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    if (!jsonResponse.getBoolean("success")) {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(CatalogActivity.this);
+                        alert.setMessage("Maintenance").setNegativeButton("Inapoi", null).create().show();
+                    }
+                    boolean success = jsonResponse.getBoolean("success");
+                    if (success)
+                    {
+                        String Type = jsonResponse.getString("Type");
+                        if(Type.equals("Grade"))
+                        {
+                            RefreshLists(Pages.Grades);
+                            Toast.makeText(CatalogActivity.this, "", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            RefreshLists(Pages.Presences);
+                        }
+                        Toast.makeText(CatalogActivity.this, "Succes", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(CatalogActivity.this);
+                        alert.setMessage("Eroare").setNegativeButton("Inapoi", null).create().show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        };
+
+        _Catalog_Upload catalog_Request = new _Catalog_Upload(ID.toString(),Type, responseListener);
+        RequestQueue catalog_Queue = Volley.newRequestQueue(CatalogActivity.this);
+        catalog_Queue.add(catalog_Request);
+
+
     }
 
-    private void RemovePresence(Presences p) {
-        if (!p.PValue) {
-            Toast.makeText(CatalogActivity.this, "Absenta cu ID-ul trebuie movitata " + p.PID, Toast.LENGTH_SHORT).show();
-            p.PValue = true;
-            //TODO: moviteaza in baza de date pls
-            RefreshLists(Pages.Presences);
-        }
-    }
 }
 
 

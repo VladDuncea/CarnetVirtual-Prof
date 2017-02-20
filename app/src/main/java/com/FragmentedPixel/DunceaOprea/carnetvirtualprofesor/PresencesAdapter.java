@@ -1,10 +1,7 @@
 package com.FragmentedPixel.DunceaOprea.carnetvirtualprofesor;
 
-/**
- * Created by oalex on 2017-02-18 .
- */
-
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-/**
- * Created by oalex on 2017-02-18 .
- */
-
 public class PresencesAdapter extends ArrayAdapter<Presences>
 {
     public PresencesAdapter(Context context, ArrayList<Presences> presencesList)
@@ -26,8 +19,9 @@ public class PresencesAdapter extends ArrayAdapter<Presences>
         super(context, 0, presencesList);
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         Presences presences = getItem(position);
 

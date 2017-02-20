@@ -7,18 +7,18 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-class _Catalog_Update extends StringRequest
+class _Catalog_Upload extends StringRequest
 {
-    private static final String Site_URL_Login = "http://carnet-virtual.victoriacentre.ro/catalog_update.php";
+    private static final String Site_URL_Login = "http://carnet-virtual.victoriacentre.ro/catalog_upload.php";
     private Map<String, String> params;
 
-    _Catalog_Update(String STID, String SBName, Response.Listener<String> listener) {
+    _Catalog_Upload(String ID, String Type, Response.Listener<String> listener) {
         super(Request.Method.POST, Site_URL_Login, listener, null);
-        String AccessCode = "876543";
+        String AccessCode = "345345";
         params = new HashMap<>();
         params.put("AccessCode",AccessCode);
-        params.put("STID",STID);
-        params.put("SBName",SBName);
+        params.put("ID",ID);
+        params.put("Type",Type);
 
     }
     @Override

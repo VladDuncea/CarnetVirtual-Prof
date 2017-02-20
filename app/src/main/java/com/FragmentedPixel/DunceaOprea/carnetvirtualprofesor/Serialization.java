@@ -1,7 +1,6 @@
 package com.FragmentedPixel.DunceaOprea.carnetvirtualprofesor;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,9 +9,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-/**
- * Created by oalex on 2017-02-15 .
- */
 
 public class Serialization implements Serializable
 {

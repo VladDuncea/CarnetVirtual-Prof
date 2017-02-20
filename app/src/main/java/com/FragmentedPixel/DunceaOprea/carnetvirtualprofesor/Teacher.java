@@ -2,24 +2,20 @@ package com.FragmentedPixel.DunceaOprea.carnetvirtualprofesor;
 
 import java.util.ArrayList;
 
-/**
- * Created by oalex on 2017-02-11 .
- */
-
-public class Teacher
+class Teacher
 {
-    public static Teacher teacher;
-    public ArrayList<Classes> classes = new ArrayList<>();
+    static Teacher teacher;
+    ArrayList<Classes> classes = new ArrayList<>();
 
-    public Classes selectedClass;
-    public String selectedSubject;
+    Classes selectedClass;
+    String selectedSubject;
 
-    public String TID;
-    public String Name;
-    public String FirstName;
-    public Boolean IsMaster;
+    String TID;
+    String Name;
+    String FirstName;
+    Boolean IsMaster;
 
-    public Teacher(String TID,String Name,String FirstName,Boolean IsMaster,ArrayList<Classes> classes)
+    Teacher(String TID, String Name, String FirstName, Boolean IsMaster, ArrayList<Classes> classes)
     {
         this.classes = classes;
         this.TID = TID;
