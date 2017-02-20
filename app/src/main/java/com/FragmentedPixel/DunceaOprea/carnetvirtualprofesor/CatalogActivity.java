@@ -36,6 +36,7 @@ public class CatalogActivity extends AppCompatActivity
     private ArrayList<Presences> presenecesList;
 
     private enum Pages {Grades, Presences, Messages};
+    private Pages selectedPage;
 
     ListView lv1 = (ListView) findViewById(R.id.lv1);
 
@@ -44,26 +45,36 @@ public class CatalogActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
-        /*
+
         lv1.setOnTouchListener(new OnSwipeTouchListener(CatalogActivity.this)
         {
-            public void onSwipeRight() {
+            public void onSwipeRight()
+            {
                 if(selectedPage == Pages.Grades)
                     RefreshLists(Pages.Presences);
 
                 else if(selectedPage == Pages.Presences)
                     RefreshLists(Pages.Messages);
 
-                else
+                else if(selectedPage == Pages.Messages)
                     RefreshLists(Pages.Grades);
             }
-            public void onSwipeLeft() {
 
+            public void onSwipeLeft()
+            {
+                if(selectedPage == Pages.Grades)
+                    RefreshLists(Pages.Messages);
+
+                else if(selectedPage == Pages.Presences)
+                    RefreshLists(Pages.Grades);
+
+                else if(selectedPage == Pages.Messages)
+                    RefreshLists(Pages.Presences);
             }
         }
         );
-        */
 
+/*
         Button btGrades = (Button) findViewById(R.id.button_date);
         btGrades.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +98,7 @@ public class CatalogActivity extends AppCompatActivity
                 RefreshLists(Pages.Messages);
             }
         });
-
+*/
         SetStudentsSpinner();
     }
 
@@ -229,6 +240,8 @@ public class CatalogActivity extends AppCompatActivity
 
     private void RefreshLists(Pages p)
     {
+        selectedPage = p;
+
         if(p ==  Pages.Grades)
             ToGrades();
         else if(p == Pages.Presences)
