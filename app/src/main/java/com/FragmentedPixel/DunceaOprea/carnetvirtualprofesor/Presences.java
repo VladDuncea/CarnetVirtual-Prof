@@ -2,18 +2,15 @@ package com.FragmentedPixel.DunceaOprea.carnetvirtualprofesor;
 
 import java.util.Date;
 
-/**
- * Created by oalex on 2017-02-14 .
- */
 
-public class Presences
+class Presences
 {
-    public int PID;
-    public Date PDate;
-    public String PSBName;
-    public boolean PValue;
+    int PID;
+    Date PDate;
+    String PSBName;
+    boolean PValue;
 
-    public Presences(int PID, Date PDate, String PSBName, boolean PValue)
+    Presences(int PID, Date PDate, String PSBName, boolean PValue)
     {
         this.PID = PID;
         this.PDate = PDate;

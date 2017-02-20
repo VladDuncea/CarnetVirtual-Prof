@@ -1,30 +1,29 @@
 package com.FragmentedPixel.DunceaOprea.carnetvirtualprofesor;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-/**
- * Created by oalex on 2017-02-19 .
- */
 
-public class GradesAdapter extends ArrayAdapter<Grades>
+
+class GradesAdapter extends ArrayAdapter<Grades>
 {
-    public GradesAdapter(Context context, ArrayList<Grades> gradesList)
+    GradesAdapter(Context context, ArrayList<Grades> gradesList)
     {
         super(context, 0, gradesList);
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         Grades grades = getItem(position);
 
@@ -44,6 +43,7 @@ public class GradesAdapter extends ArrayAdapter<Grades>
             gradeValue.setText(""+grades.GValue);
             gradeSubject.setText(grades.SbName);
         }
+
         return convertView;
     }
 

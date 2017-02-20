@@ -30,12 +30,116 @@ public class CatalogActivity extends AppCompatActivity
     private ArrayList<Grades> gradesList;
     private ArrayList<Presences> presenecesList;
 
+    private enum Pages {Grades, Presences, Messages}
+    private Pages selectedPage=Pages.Grades;
+
+    ListView lv1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
+        lv1 = (ListView) findViewById(R.id.lv1);
 
+        lv1.setOnTouchListener(new OnSwipeTouchListener(CatalogActivity.this)
+        {
+            public void onSwipeRight()
+            {
+                if(selectedPage == Pages.Grades) {
+                    RefreshLists(Pages.Presences);
+                    Toast.makeText(CatalogActivity.this, "Presences", Toast.LENGTH_SHORT).show();
+                }
+                else if(selectedPage == Pages.Presences)
+                    RefreshLists(Pages.Messages);
+
+                else if(selectedPage == Pages.Messages)
+                    RefreshLists(Pages.Grades);
+            }
+
+            public void onSwipeLeft()
+            {
+                if(selectedPage == Pages.Grades)
+                    RefreshLists(Pages.Messages);
+
+                else if(selectedPage == Pages.Presences)
+                    RefreshLists(Pages.Grades);
+
+                else if(selectedPage == Pages.Messages)
+                    RefreshLists(Pages.Presences);
+            }
+        }
+        );
+
+/*
+        Button btGrades = (Button) findViewById(R.id.button_date);
+        btGrades.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RefreshLists(Pages.Grades);
+            }
+        });
+
+        Button btPreseneces = (Button) findViewById(R.id.button_date);
+        btPreseneces.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RefreshLists(Pages.Presences);
+            }
+        });
+
+        Button btMessages = (Button) findViewById(R.id.button_date);
+        btMessages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RefreshLists(Pages.Messages);
+            }
+        });
+*/
         SetStudentsSpinner();
+    }
+
+
+    private void ToGrades()
+    {
+        GradesAdapter adapter = new GradesAdapter(this, gradesList);
+        lv1.setAdapter(adapter);
+
+        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                RemoveGrade(gradesList.get(position));
+            }
+        });
+    }
+
+    private void ToPresences()
+    {
+        PresencesAdapter adapter = new PresencesAdapter(this, presenecesList);
+        lv1.setAdapter(adapter);
+
+        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                RemovePresence(presenecesList.get(position));
+            }
+        });
+    }
+
+    //TODO: Add grades Adapter
+    private void ToMessages()
+    {
+        GradesAdapter adapter = new GradesAdapter(this, gradesList);
+        lv1.setAdapter(adapter);
+
+        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                RemoveGrade(gradesList.get(position));
+            }
+        });
     }
 
     private void SetStudentsSpinner()
@@ -55,7 +159,6 @@ public class CatalogActivity extends AppCompatActivity
             {
                 int STID =Teacher.teacher.selectedClass.students.get(position).stID;
                 GetData(STID);
-                RefreshLists();
             }
 
             @Override
@@ -110,6 +213,8 @@ public class CatalogActivity extends AppCompatActivity
                             gradesList.add(new Grades(GID, GValue,Teacher.teacher.selectedSubject, date));
                         }
 
+                        RefreshLists(Pages.Grades);
+
                     }
                     else{
                         AlertDialog.Builder alert = new AlertDialog.Builder(CatalogActivity.this);
@@ -129,34 +234,16 @@ public class CatalogActivity extends AppCompatActivity
 
     }
 
-    private void RefreshLists()
+    private void RefreshLists(Pages p)
     {
-        ListView lv1 = (ListView) findViewById(R.id.lv1);
-        ListView lv2 = (ListView) findViewById(R.id.lv2);
+        selectedPage = p;
 
-        GradesAdapter adapter = new GradesAdapter(this, gradesList);
-        PresencesAdapter adapter1 = new PresencesAdapter(this, presenecesList);
-
-        Toast.makeText(this, gradesList.get(0).SbName, Toast.LENGTH_SHORT).show();
-
-        //lv1.setAdapter(adapter);
-        //lv2.setAdapter(adapter1);
-
-        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                RemoveGrade(gradesList.get(position));
-            }
-        });
-
-        lv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                RemovePresence(presenecesList.get(position));
-            }
-        });
+        if(p ==  Pages.Grades)
+            ToGrades();
+        else if(p == Pages.Presences)
+            ToPresences();
+        else if(p == Pages.Messages)
+            ToMessages();
     }
 
     private void RemoveGrade(Grades g)
@@ -164,7 +251,7 @@ public class CatalogActivity extends AppCompatActivity
         Toast.makeText(CatalogActivity.this, "Nota cu ID-ul trebuie stearsa " + g.GID, Toast.LENGTH_SHORT).show();
         gradesList.remove(g);
         //TODO: PLS remove from database
-        RefreshLists();
+        RefreshLists(Pages.Grades);
     }
 
     private void RemovePresence(Presences p) {
@@ -172,7 +259,7 @@ public class CatalogActivity extends AppCompatActivity
             Toast.makeText(CatalogActivity.this, "Absenta cu ID-ul trebuie movitata " + p.PID, Toast.LENGTH_SHORT).show();
             p.PValue = true;
             //TODO: moviteaza in baza de date pls
-            RefreshLists();
+            RefreshLists(Pages.Presences);
         }
     }
 }
