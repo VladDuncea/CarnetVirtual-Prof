@@ -209,8 +209,12 @@ public class CatalogActivity extends AppCompatActivity
                             Date date = format.parse(GDate);
                             Integer GValue = grade.getInt("GValue");
                             Integer GID = grade.getInt("GID");
+                            Integer GState = grade.getInt("GState");
+                            String SBName = Teacher.teacher.selectedSubject;
+                            if(GState==1)
+                                SBName+="(X)In Asteptare";
 
-                            gradesList.add(new Grades(GID, GValue,Teacher.teacher.selectedSubject, date));
+                            gradesList.add(new Grades(GID, GValue,SBName, date));
                         }
 
                         RefreshLists(Pages.Grades);
@@ -254,7 +258,6 @@ public class CatalogActivity extends AppCompatActivity
         if(p!=null)
         {
             if (!p.PValue) {
-                Toast.makeText(CatalogActivity.this, "Absenta cu ID-ul trebuie movitata " + p.PID, Toast.LENGTH_SHORT).show();
                 p.PValue = true;
 
                 ID = p.PID;
@@ -267,7 +270,6 @@ public class CatalogActivity extends AppCompatActivity
         }
         else
         {
-            Toast.makeText(CatalogActivity.this, "Nota cu ID-ul trebuie stearsa " + g.GID, Toast.LENGTH_SHORT).show();
             gradesList.remove(g);
 
             ID = g.GID;
@@ -290,13 +292,13 @@ public class CatalogActivity extends AppCompatActivity
                         if(Type.equals("Grade"))
                         {
                             RefreshLists(Pages.Grades);
-                            Toast.makeText(CatalogActivity.this, "", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CatalogActivity.this, "Nota trimisa", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
                             RefreshLists(Pages.Presences);
                         }
-                        Toast.makeText(CatalogActivity.this, "Succes", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CatalogActivity.this, "Absenta motivata", Toast.LENGTH_SHORT).show();
 
                     } else {
                         AlertDialog.Builder alert = new AlertDialog.Builder(CatalogActivity.this);
