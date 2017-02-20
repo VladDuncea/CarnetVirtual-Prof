@@ -47,20 +47,6 @@
                 android:layout_height="wrap_content" >
             </ListView>
         </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rl_ListView2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5" >
-
-            <ListView
-                android:id="@+id/lv2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-            </ListView>
-
-        </RelativeLayout>
     </LinearLayout>
 
 </RelativeLayout>
