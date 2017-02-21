@@ -67,6 +67,7 @@
         android:id="@+id/teza_checkBox"
         android:textAlignment="viewStart"
         android:layout_below="@+id/date_textView"
+        android:textColor="#ff757575"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
