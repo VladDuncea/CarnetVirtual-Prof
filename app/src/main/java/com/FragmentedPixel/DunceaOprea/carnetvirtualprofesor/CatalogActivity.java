@@ -1,6 +1,7 @@
 package com.FragmentedPixel.DunceaOprea.carnetvirtualprofesor;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -29,6 +30,7 @@ public class CatalogActivity extends AppCompatActivity
 
     private ArrayList<Grades> gradesList;
     private ArrayList<Presences> presenecesList;
+    private ArrayList<ChatMessage> messageList;
 
     private enum Pages {Grades, Presences, Messages}
     private Pages selectedPage=Pages.Grades;
@@ -47,7 +49,6 @@ public class CatalogActivity extends AppCompatActivity
             {
                 if(selectedPage == Pages.Grades) {
                     RefreshLists(Pages.Presences);
-                    //Toast.makeText(CatalogActivity.this, "Presences", Toast.LENGTH_SHORT).show();
                 }
                 else if(selectedPage == Pages.Presences)
                     RefreshLists(Pages.Messages);
@@ -70,31 +71,6 @@ public class CatalogActivity extends AppCompatActivity
         }
         );
 
-/*
-        Button btGrades = (Button) findViewById(R.id.button_date);
-        btGrades.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RefreshLists(Pages.Grades);
-            }
-        });
-
-        Button btPreseneces = (Button) findViewById(R.id.button_date);
-        btPreseneces.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RefreshLists(Pages.Presences);
-            }
-        });
-
-        Button btMessages = (Button) findViewById(R.id.button_date);
-        btMessages.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RefreshLists(Pages.Messages);
-            }
-        });
-*/
         SetStudentsSpinner();
     }
 
@@ -127,16 +103,16 @@ public class CatalogActivity extends AppCompatActivity
         });
     }
 
-    //TODO: Add Messages Adapter
     private void ToMessages()
     {
-        GradesAdapter adapter = new GradesAdapter(this, gradesList);
+        ChatAdapter adapter = new ChatAdapter(this, messageList);
         lv1.setAdapter(adapter);
 
         lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
+                //TODO: Duncea pls. O duncea frumos, O duncea frumos. Fuck me, daddy. FIXME: 2/21/2017 
                 Remove(null,gradesList.get(position));
             }
         });
@@ -264,9 +240,7 @@ public class CatalogActivity extends AppCompatActivity
                 Type = "Presence";
             }
             else
-            {
                 return;
-            }
         }
         else
         {

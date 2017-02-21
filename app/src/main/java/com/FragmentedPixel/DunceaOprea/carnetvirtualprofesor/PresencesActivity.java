@@ -78,7 +78,7 @@ public class PresencesActivity extends AppCompatActivity {
                     boolean success = jsonResponse.getBoolean("success");
                     if(success){
 
-                        Toast.makeText(PresencesActivity.this,"Succes",Toast.LENGTH_LONG).show();
+                        Toast.makeText(PresencesActivity.this,"Absenta trimisa",Toast.LENGTH_LONG).show();
 
                     }
                     else{
