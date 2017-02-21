@@ -21,25 +21,6 @@
         android:textAlignment="center"
         android:textSize="24sp" />
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/classHeader_textView"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/students_Spinner"
-        android:dropDownWidth="match_parent" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:layout_below="@+id/students_Spinner"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/nota_editText"
-        android:hint="Nota" />
-
     <Button
         android:text="Trimite"
         android:layout_width="wrap_content"
@@ -50,15 +31,49 @@
         android:layout_alignParentStart="true"
         style="@style/Widget.AppCompat.Button.Colored" />
 
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/students_Spinner"
+        android:dropDownWidth="match_parent"
+        android:layout_below="@+id/classHeader_textView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Data:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/date_pretext"
+        android:layout_below="@+id/students_Spinner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="18sp" />
+
     <TextView
         android:text="Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nota_editText"
+        android:id="@+id/date_textView"
+        android:textSize="18sp"
+        android:layout_below="@+id/date_pretext"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/nota_editText"
+        android:hint="Nota"
+        android:layout_marginTop="51dp"
+        android:layout_below="@+id/teza_checkBox"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/date_textView"
-        android:textSize="18sp" />
+        android:lineSpacingExtra="18sp" />
 
     <CheckBox
         android:text="teza"
@@ -66,6 +81,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/teza_checkBox"
         android:textAlignment="viewStart"
+        android:textSize="18sp"
         android:layout_below="@+id/date_textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
