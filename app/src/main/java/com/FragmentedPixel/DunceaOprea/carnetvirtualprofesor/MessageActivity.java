@@ -89,7 +89,7 @@ public class MessageActivity extends AppCompatActivity {
         options.add("Test");
         options.add("Teza");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_simple_line, options);
         messageTypeSpinner.setAdapter(adapter);
 
         messageTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -127,7 +127,7 @@ public class CatalogActivity extends AppCompatActivity
         for (Student s: Teacher.teacher.selectedClass.students)
             students.add(s.stName + " " + s.stForname);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, students);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_simple_line, students);
         Spinner studentsSpinner = (Spinner) findViewById(R.id.catalog_elevi_spinner);
         studentsSpinner.setAdapter(adapter);
 

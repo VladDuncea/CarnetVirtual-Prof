@@ -63,7 +63,7 @@ public class GradesActivity extends AppCompatActivity {
             students.add(s.stName + " " + s.stForname);
 
         Spinner studentsSpinner = (Spinner) findViewById(R.id.students_Spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, students);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_simple_line, students);
         studentsSpinner.setAdapter(adapter);
     }
 
