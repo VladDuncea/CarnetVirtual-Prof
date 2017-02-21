@@ -64,7 +64,7 @@ public class Refresh {
 
                                 Integer NRStudents = Classes.getInt("NRStudents");
                                 Integer NRSubjects = Classes.getInt("NRSubjects");
-                                Integer NRChats = Classes.getInt("Chat_nr");
+                                //Integer NRChats = Classes.getInt("Chat_nr");
 
                                 String CName = Classes.getString("CName");
                                 Integer CID = Classes.getInt("CID");
@@ -89,7 +89,7 @@ public class Refresh {
                                     String  STFirstName = Student.getString("STFirstName");
                                     teacherStudent.add(new Student(STName,STFirstName,STID));
                                 }
-                                for(int j=0;j<NRChats;j++)
+                                for(int j=0;j<0;j++)
                                 {
                                     JSONObject chat = jsonResponse.getJSONObject("Chat"+j);
 

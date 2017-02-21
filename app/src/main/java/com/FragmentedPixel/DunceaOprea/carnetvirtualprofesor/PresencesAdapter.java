@@ -30,6 +30,7 @@ public class PresencesAdapter extends ArrayAdapter<Presences>
 
         CheckBox gradeBox = (CheckBox) convertView.findViewById(R.id.presence_checkBox);
 
+
         if(presences != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM", Locale.getDefault());
             gradeBox.setText(presences.PSBName + " - " +sdf.format(presences.PDate));

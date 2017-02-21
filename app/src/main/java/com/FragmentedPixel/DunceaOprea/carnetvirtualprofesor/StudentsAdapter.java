@@ -28,11 +28,11 @@ class StudentsAdapter extends ArrayAdapter<Student>
         if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.presence_item, parent, false);
 
-        CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.presence_checkBox);
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        final CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.presence_checkBox);
+        checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Toast.makeText(getContext().getApplicationContext(), "Schimbat", Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
+                checkBox.setChecked(true);
             }
         });
 
