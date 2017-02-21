@@ -254,8 +254,11 @@ public class CatalogActivity extends AppCompatActivity
                         if(Type.equals("Grade"))
                         {
                             RefreshLists(Pages.Grades);
-                            g.GState = 1;
-                            g.SbName=g.SbName +"(X)In Asteptare";
+                            if(g.GState==0)
+                            {
+                                g.GState = 1;
+                                g.SbName = g.SbName + "(X)In Asteptare";
+                            }
                             Toast.makeText(CatalogActivity.this, "Nota trimisa", Toast.LENGTH_SHORT).show();
                         }
                         else
