@@ -47,7 +47,7 @@ public class PresencesActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
 
-                PopulateList();
+                //PopulateList();
                 Presence(Teacher.teacher.selectedClass.students.get(position).stID);
             }
         });
