@@ -18,11 +18,18 @@ class _Presence_Upload extends StringRequest{
         String AccessCode = "242424";
         params = new HashMap<>();
         params.put("AccessCode",AccessCode);
-        params.put("STID",STID);
+        Integer c=0;
+        for(String s:STID)
+        {
+            params.put("STID"+c,s);
+            c++;
+        }
+        params.put("STIDNr",c.toString());
         params.put("TID",TID);
         params.put("CValue",CValue);
         params.put("SBName",SBName);
         params.put("PDate",PDate);
+
 
     }
     @Override

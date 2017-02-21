@@ -254,8 +254,8 @@ public class CatalogActivity extends AppCompatActivity
                         if(Type.equals("Grade"))
                         {
                             RefreshLists(Pages.Grades);
-                            g.SbName=g.SbName +"(X)In Asteptare";
                             g.GState = 1;
+                            g.SbName=g.SbName +"(X)In Asteptare";
                             Toast.makeText(CatalogActivity.this, "Nota trimisa", Toast.LENGTH_SHORT).show();
                         }
                         else
@@ -264,7 +264,7 @@ public class CatalogActivity extends AppCompatActivity
                             p.PValue = true;
                             Toast.makeText(CatalogActivity.this, "Absenta motivata", Toast.LENGTH_SHORT).show();
                         }
-                        
+
                     } else {
                         AlertDialog.Builder alert = new AlertDialog.Builder(CatalogActivity.this);
                         alert.setMessage("Eroare").setNegativeButton("Inapoi", null).create().show();

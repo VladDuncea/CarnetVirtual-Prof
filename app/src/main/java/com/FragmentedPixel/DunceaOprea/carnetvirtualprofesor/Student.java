@@ -4,7 +4,7 @@ class Student {
 
     String stName;
     String stForname;
-    int stID;
+    Integer stID;
 
     Student(String stName, String stForname, int stID) {
         this.stName = stName;
