@@ -46,7 +46,7 @@ public class PresencesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                //TODO: pls do this.
+
                 PopulateList();
                 Presence(Teacher.teacher.selectedClass.students.get(position).stID);
             }

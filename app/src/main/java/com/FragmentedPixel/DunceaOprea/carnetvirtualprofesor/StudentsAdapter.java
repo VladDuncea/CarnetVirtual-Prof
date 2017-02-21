@@ -7,15 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Locale;
-
-/**
- * Created by elev on 2/21/2017.
- */
 
 class StudentsAdapter extends ArrayAdapter<Student>
 {
