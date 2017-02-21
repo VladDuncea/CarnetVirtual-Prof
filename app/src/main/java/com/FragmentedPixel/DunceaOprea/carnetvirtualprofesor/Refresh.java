@@ -92,7 +92,7 @@ class Refresh {
                                 for(int j=0;j<NRChats;j++)
                                 {
                                     JSONObject chat = Classes.getJSONObject("Chat"+j);
-
+                                    Integer CHID = chat.getInt("CHID");
                                     DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
                                     String CHDate = chat.getString("CHDate");
                                     String CHEDate = chat.getString("CHEDate");
@@ -100,7 +100,7 @@ class Refresh {
                                     Date chedate = format.parse(CHEDate);
                                     Integer CHType = chat.getInt("CHType");
                                     String CHMessage = chat.getString("CHMessage");
-                                    messages.add(new ChatMessage(chdate,chedate,CHMessage,TName,CHType));
+                                    messages.add(new ChatMessage(CHID,chdate,chedate,CHMessage,TName,CHType));
                                 }
 
                                 teacherClasses.add(new Classes(CID,CValue,CName,CMaster,classesSubject,teacherStudent,messages ));

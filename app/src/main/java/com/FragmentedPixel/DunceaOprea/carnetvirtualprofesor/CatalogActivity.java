@@ -116,7 +116,7 @@ public class CatalogActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 //TODO: Duncea pls. O duncea frumos, O duncea frumos. Fuck me, daddy. FIXME: 2/21/2017 
-               // Remove(Teacher.teacher.selectedClass.messages.get(position));
+               Remove(Teacher.teacher.selectedClass.messages.get(position));
             }
         });
     }
@@ -227,17 +227,23 @@ public class CatalogActivity extends AppCompatActivity
 
     private void Remove(Presences p) {
             if (!p.PValue)
-                SendRemove(p.PID,"Presence",p,null);
+                SendRemove(p.PID,"Presence",p,null,null);
     }
 
     private void Remove(Grades g) {
         if(g.GState==0)
-            SendRemove(g.GID,"Grade",null,g);
+            SendRemove(g.GID,"Grade",null,g,null);
         else if(g.GState==1)
             Toast.makeText(this, "In asteptare", Toast.LENGTH_SHORT).show();
     }
 
-    private void SendRemove (Integer ID,String Type,final Presences p, final Grades g){
+    private void Remove(ChatMessage cm)
+    {
+        SendRemove(cm.CHID,"Message",null,null,cm);
+        Toast.makeText(this,""+ cm.CHID, Toast.LENGTH_SHORT).show();
+    }
+
+    private void SendRemove (Integer ID,String Type,final Presences p, final Grades g,final ChatMessage cm){
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -253,19 +259,26 @@ public class CatalogActivity extends AppCompatActivity
                         String Type = jsonResponse.getString("Type");
                         if(Type.equals("Grade"))
                         {
-                            RefreshLists(Pages.Grades);
+
                             if(g.GState==0)
                             {
                                 g.GState = 1;
                                 g.SbName = g.SbName + "(X)In Asteptare";
                             }
                             Toast.makeText(CatalogActivity.this, "Nota trimisa", Toast.LENGTH_SHORT).show();
+                            RefreshLists(Pages.Grades);
                         }
-                        else
+                        else if(Type.equals("Presence"))
                         {
-                            RefreshLists(Pages.Presences);
                             p.PValue = true;
                             Toast.makeText(CatalogActivity.this, "Absenta motivata", Toast.LENGTH_SHORT).show();
+                            RefreshLists(Pages.Presences);
+                        }
+                        else if(Type.equals("Message"))
+                        {
+                            Teacher.teacher.selectedClass.messages.remove(cm);
+                            Toast.makeText(CatalogActivity.this, "Mesaj Sters", Toast.LENGTH_SHORT).show();
+                            RefreshLists(Pages.Messages);
                         }
 
                     } else {

@@ -135,7 +135,7 @@ public class MessageActivity extends AppCompatActivity {
                     if(success){
 
                         Toast.makeText(MessageActivity.this,"Mesaj trimis.",Toast.LENGTH_LONG).show();
-                        ChatMessage chmessage = new ChatMessage(Calendar.getInstance().getTime(),myCalendar.getTime(),message,Teacher.teacher.Name,type);
+                        ChatMessage chmessage = new ChatMessage(0,Calendar.getInstance().getTime(),myCalendar.getTime(),message,Teacher.teacher.Name,type);
                         Teacher.teacher.selectedClass.messages.add(chmessage);
                         ExpireDate=null;
                         button.setText("Selectati data");
