@@ -13,7 +13,7 @@ class _Presence_Upload extends StringRequest{
     private static final String Site_URL_Login = "http://carnet-virtual.victoriacentre.ro/presence_upload_prof.php";
     private Map<String, String> params;
 
-    _Presence_Upload(String STID, String CValue, String TID, String SBName, String PDate, Response.Listener<String> listener) {
+    _Presence_Upload(ArrayList<String> STID, String CValue, String TID, String SBName, String PDate, Response.Listener<String> listener) {
         super(Request.Method.POST, Site_URL_Login, listener, null);
         String AccessCode = "242424";
         params = new HashMap<>();

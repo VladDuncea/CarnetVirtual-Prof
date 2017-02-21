@@ -112,7 +112,7 @@ public class PresencesActivity extends AppCompatActivity {
         String TID = Teacher.teacher.TID;
         String SBName = Teacher.teacher.selectedSubject;
 
-        _Presence_Upload presence_Request = new _Presence_Upload(null,CValue,TID,SBName,df.format(date),responseListener);
+        _Presence_Upload presence_Request = new _Presence_Upload(studentsIDs,CValue,TID,SBName,df.format(date),responseListener);
         RequestQueue presence_Queue = Volley.newRequestQueue(PresencesActivity.this);
         presence_Queue.add(presence_Request);
     }
