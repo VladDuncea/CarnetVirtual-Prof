@@ -255,7 +255,7 @@ public class CatalogActivity extends AppCompatActivity
                         {
                             RefreshLists(Pages.Grades);
                             if(g.GState==0)
-                            {//
+                            {
                                 g.GState = 1;
                                 g.SbName = g.SbName + "(X)In Asteptare";
                             }
