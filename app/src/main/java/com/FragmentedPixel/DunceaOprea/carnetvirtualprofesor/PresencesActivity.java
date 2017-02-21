@@ -26,7 +26,7 @@ import java.util.Locale;
 public class PresencesActivity extends AppCompatActivity {
 
 
-    ArrayList<String> studentsName = new ArrayList<>();
+    ArrayList<Student> students = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,7 +38,7 @@ public class PresencesActivity extends AppCompatActivity {
         classText.setText(Teacher.teacher.selectedClass.CName);
 
         for(Student s : Teacher.teacher.selectedClass.students)
-            studentsName.add(s.stName + " " + s.stForname);
+            students.add(s);
 
         PopulateList();
         ListView studentsList = (ListView) findViewById(R.id.students_list);
@@ -46,7 +46,7 @@ public class PresencesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                studentsName.remove(position);
+                //TODO: pls do this.
                 PopulateList();
                 Presence(Teacher.teacher.selectedClass.students.get(position).stID);
             }
@@ -55,7 +55,7 @@ public class PresencesActivity extends AppCompatActivity {
 
     private void PopulateList()
     {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, studentsName);
+        StudentsAdapter adapter = new StudentsAdapter(this, students);
         ListView studentsList = (ListView) findViewById(R.id.students_list);
         studentsList.setAdapter(adapter);
     }
