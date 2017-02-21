@@ -27,7 +27,7 @@ import java.util.Locale;
 
 public class PresencesActivity extends AppCompatActivity {
 
-    ArrayList<Integer> studentsIDs = new ArrayList<>();
+    ArrayList<String> studentsIDs = new ArrayList<>();
     ArrayList<Student> students = new ArrayList<>();
 
     @Override
@@ -51,9 +51,9 @@ public class PresencesActivity extends AppCompatActivity {
             {
                 CheckBox box = (CheckBox)view.findViewById(R.id.presence_checkBox);
                 if(!box.isChecked())
-                    studentsIDs.add(Teacher.teacher.selectedClass.students.get(position).stID);
+                    studentsIDs.add(Teacher.teacher.selectedClass.students.get(position).stID.toString());
                 else
-                    studentsIDs.remove(Teacher.teacher.selectedClass.students.get(position).stID);
+                    studentsIDs.remove(Teacher.teacher.selectedClass.students.get(position).stID.toString());
 
                 box.setChecked(!box.isChecked());
             }
@@ -94,8 +94,8 @@ public class PresencesActivity extends AppCompatActivity {
                     }
                     boolean success = jsonResponse.getBoolean("success");
                     if(success){
-                        for(Integer i : studentsIDs)
-                            Toast.makeText(PresencesActivity.this,"Absenta trimisa",Toast.LENGTH_SHORT).show();
+                        for(String i : studentsIDs)
+                            Toast.makeText(PresencesActivity.this,i,Toast.LENGTH_SHORT).show();
 
                     }
                     else{
