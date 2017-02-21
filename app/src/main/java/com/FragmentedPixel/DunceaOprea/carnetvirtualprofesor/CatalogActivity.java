@@ -194,7 +194,7 @@ public class CatalogActivity extends AppCompatActivity
 
                             gradesList.add(new Grades(GID, GValue,SBName, date, GState));
                         }
-                        RefreshLists(Pages.Grades);
+                        RefreshLists(selectedPage);
 
                     }
                     else{
