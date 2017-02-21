@@ -239,8 +239,7 @@ public class CatalogActivity extends AppCompatActivity
 
     private void Remove(ChatMessage cm)
     {
-        SendRemove(cm.CHID,"Message",null,null,cm);
-        Toast.makeText(this,""+ cm.CHID, Toast.LENGTH_SHORT).show();
+        SendRemove(cm.CHID, "Message", null, null, cm);
     }
 
     private void SendRemove (Integer ID,String Type,final Presences p, final Grades g,final ChatMessage cm){
