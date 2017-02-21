@@ -18,7 +18,7 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/message_header_textView"
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textSize="24sp"
         tools:ignore="HardcodedText" />
 
     <Button
@@ -29,7 +29,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/message_send_button"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText"
+        android:textAllCaps="false"
+        style="@style/Widget.AppCompat.Button.Colored" />
 
     <Spinner
         android:layout_width="match_parent"
@@ -47,7 +49,9 @@
         android:onClick="date_set"
         android:layout_below="@+id/messageType_spinner"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textAllCaps="false"
+        style="@style/Widget.AppCompat.Button.Colored" />
 
     <EditText
         android:layout_width="match_parent"

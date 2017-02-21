@@ -29,7 +29,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:textSize="14sp"
-        android:id="@+id/presences_submit_butotn" />
+        android:id="@+id/presences_submit_butotn"
+        android:textAllCaps="false"
+        style="@style/Widget.AppCompat.Button.Colored" />
 
     <ListView
         android:layout_width="match_parent"

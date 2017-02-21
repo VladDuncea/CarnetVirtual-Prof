@@ -49,9 +49,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Log In"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText" />
+                android:text="Logheaza-te"
+                tools:ignore="HardcodedText"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:textAllCaps="false" />
 
         </LinearLayout>
     </ScrollView>
