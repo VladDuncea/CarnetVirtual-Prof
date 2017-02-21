@@ -11,7 +11,12 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class Refresh {
@@ -56,14 +61,19 @@ public class Refresh {
                             for(int i=0;i<NRClasses;i++)
                             {
                                 JSONObject Classes = jsonResponse.getJSONObject("Classes"+i);
+
                                 Integer NRStudents = Classes.getInt("NRStudents");
                                 Integer NRSubjects = Classes.getInt("NRSubjects");
+                                Integer NRChats = Classes.getInt("Chat_nr");
+
                                 String CName = Classes.getString("CName");
                                 Integer CID = Classes.getInt("CID");
                                 Integer CValue = Classes.getInt("CValue");
                                 Boolean CMaster = Classes.getBoolean("CMaster");
+
                                 ArrayList<Student> teacherStudent = new ArrayList<>();
                                 ArrayList<String> classesSubject = new ArrayList<>();
+                                ArrayList<ChatMessage> messages = new ArrayList<>();
 
                                 for(int j=0;j<NRSubjects;j++)
                                 {
@@ -79,8 +89,24 @@ public class Refresh {
                                     String  STFirstName = Student.getString("STFirstName");
                                     teacherStudent.add(new Student(STName,STFirstName,STID));
                                 }
+                                for(int j=0;j<NRChats;j++)
+                                {
+                                    JSONObject chat = jsonResponse.getJSONObject("Chat"+j);
 
-                                teacherClasses.add(new Classes(CID,CValue,CName,CMaster,classesSubject,teacherStudent));
+                                    DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
+                                    String CHDate = chat.getString("CHDate");
+                                    String CHEDate = chat.getString("CHEDate");
+                                    Date chdate = format.parse(CHDate);
+                                    Date chedate = format.parse(CHEDate);
+                                    Integer CHType = chat.getInt("CHType");
+                                    String CHMessage = chat.getString("CHMessage");
+                                    messages.add(new ChatMessage(chdate,chedate,CHMessage,TName,CHType));
+                                }
+
+
+
+
+                                teacherClasses.add(new Classes(CID,CValue,CName,CMaster,classesSubject,teacherStudent,messages ));
                             }
                             new Teacher(TID,TName,TFirstName,TIsMaster,teacherClasses);
                             context.startActivity(new Intent(context, MainActivity.class));
@@ -91,7 +117,7 @@ public class Refresh {
                         AlertDialog.Builder alert = new AlertDialog.Builder(context);
                         alert.setMessage("Ups.. S-a intamplat ceva neprevazut").setNegativeButton("Inapoi",null).create().show();
                     }
-                } catch (JSONException e) {
+                } catch (JSONException | ParseException e) {
                     e.printStackTrace();
                 }
 

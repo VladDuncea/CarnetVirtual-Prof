@@ -59,9 +59,7 @@ public class LoginActivity extends Activity
                     LogIn();
                 else
                     Refresh.LogIn(LoginActivity.this,Serialization.serialization.email,Serialization.serialization.password);
-
                     progressDialog.dismiss();
-
             }
         }).start();
     }

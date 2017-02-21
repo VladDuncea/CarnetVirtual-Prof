@@ -161,9 +161,11 @@ public class CatalogActivity extends AppCompatActivity
 
                         presenecesList = new ArrayList<>();
                         gradesList = new ArrayList<>();
+                        messageList = new ArrayList<>();
 
                         Integer Grade_nr = jsonResponse.getInt("Grade_nr");
                         Integer Presence_nr = jsonResponse.getInt("Presence_nr");
+                        Integer Chat_nr = jsonResponse.getInt("Chat_nr");
 
                         for(int i=0;i<Presence_nr;i++)
                         {
@@ -191,6 +193,21 @@ public class CatalogActivity extends AppCompatActivity
                                 SBName+="(X)In Asteptare";
 
                             gradesList.add(new Grades(GID, GValue,SBName, date));
+                        }
+
+                        for(int i=0;i<Chat_nr;i++)
+                        {
+                            JSONObject chat = jsonResponse.getJSONObject("Chat"+i);
+
+                            DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
+                            String CHDate = chat.getString("CHDate");
+                            String CHEDate = chat.getString("CHEDate");
+                            Date chdate = format.parse(CHDate);
+                            Date chedate = format.parse(CHEDate);
+                            Integer CHType = chat.getInt("CHType");
+                            String CHMessage = chat.getString("CHMessage");
+                            String TName = chat.getString("TName");
+                            new ChatMessage(chdate,chedate,CHMessage,TName,CHType);
                         }
 
                         RefreshLists(Pages.Grades);
@@ -281,6 +298,7 @@ public class CatalogActivity extends AppCompatActivity
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
 
             }
         };

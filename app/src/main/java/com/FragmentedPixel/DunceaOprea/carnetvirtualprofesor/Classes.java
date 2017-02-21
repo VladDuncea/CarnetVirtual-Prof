@@ -10,8 +10,9 @@ class Classes
     Boolean CMaster;
     ArrayList<String> subjects;
     ArrayList<Student> students;
+    ArrayList<ChatMessage> messages;
 
-    Classes(Integer CID, Integer CValue, String CName, Boolean CMaster,ArrayList<String> subjects, ArrayList<Student> students)
+    Classes(Integer CID, Integer CValue, String CName, Boolean CMaster,ArrayList<String> subjects, ArrayList<Student> students, ArrayList<ChatMessage> messages)
     {
         this.CID = CID;
         this.CValue = CValue;
@@ -19,5 +20,6 @@ class Classes
         this.CMaster = CMaster;
         this.subjects = subjects;
         this.students = students;
+        this.messages = messages;
     }
 }
