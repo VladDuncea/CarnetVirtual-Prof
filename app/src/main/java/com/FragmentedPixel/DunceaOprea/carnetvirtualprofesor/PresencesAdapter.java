@@ -12,9 +12,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class PresencesAdapter extends ArrayAdapter<Presences>
+class PresencesAdapter extends ArrayAdapter<Presences>
 {
-    public PresencesAdapter(Context context, ArrayList<Presences> presencesList)
+    PresencesAdapter(Context context, ArrayList<Presences> presencesList)
     {
         super(context, 0, presencesList);
     }

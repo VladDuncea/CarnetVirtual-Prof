@@ -10,15 +10,15 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 
-public class Serialization implements Serializable
+class Serialization implements Serializable
 {
-    public static Serialization serialization;
+    static Serialization serialization;
     private static String fileName = "teacherdata.srl";
 
-    public String email;
-    public String password;
+    String email;
+    String password;
 
-    public Serialization(String email, String password)
+    Serialization(String email, String password)
     {
         this.email = email;
         this.password = password;
@@ -26,7 +26,7 @@ public class Serialization implements Serializable
         serialization = this;
     }
 
-    public static void saveSerializable(Context context)
+    static void saveSerializable(Context context)
     {
         if(serialization != null) {
             try {
@@ -46,7 +46,7 @@ public class Serialization implements Serializable
         }
     }
 
-    public static void readSerializable(Context context)
+    static void readSerializable(Context context)
     {
 
         try

@@ -19,8 +19,8 @@ import java.util.Date;
 import java.util.Locale;
 
 
-public class Refresh {
-    public static void LogIn(final Context context, final String Email, final String Password) {
+class Refresh {
+    static void LogIn(final Context context, final String Email, final String Password) {
 
         Response.Listener<String> loginListener = new Response.Listener<String>() {
             @Override

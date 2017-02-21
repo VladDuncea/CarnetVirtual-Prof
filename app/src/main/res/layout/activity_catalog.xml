@@ -11,7 +11,7 @@
     tools:context="com.FragmentedPixel.DunceaOprea.carnetvirtualprofesor.CatalogActivity">
 
     <TextView
-        android:text="TextView"
+        android:text="Catalog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
