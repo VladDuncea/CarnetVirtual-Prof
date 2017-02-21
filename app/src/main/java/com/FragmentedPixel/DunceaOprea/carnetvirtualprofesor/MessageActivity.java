@@ -31,8 +31,9 @@ import java.util.Locale;
 public class MessageActivity extends AppCompatActivity {
 
     private String ExpireDate;
-    private EditText edittext;
+    private Button button;
     private Integer type;
+    private EditText etMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -71,7 +72,7 @@ public class MessageActivity extends AppCompatActivity {
 
 
     private void updateLabel() {
-        Button button = (Button)findViewById(R.id.button_date);
+        button = (Button)findViewById(R.id.button_date);
         String myFormat = "yyyy-MM-dd HH:mm";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
         ExpireDate =sdf.format(myCalendar.getTime());
@@ -107,8 +108,18 @@ public class MessageActivity extends AppCompatActivity {
 
     private void SendMessage()
     {
-        EditText editTextMessage = (EditText) findViewById(R.id.messge_editText);
-        final String message = editTextMessage.getText().toString();
+        etMessage = (EditText) findViewById(R.id.messge_editText);
+        final String message = etMessage.getText().toString();
+
+        String CID = Teacher.teacher.selectedClass.CID.toString();
+        final String TID = Teacher.teacher.TID;
+        String Name = Teacher.teacher.Name;
+
+        if(message.equals("")||ExpireDate==null)
+        {
+            Toast.makeText(this, "Introduceti un mesaj si selectati data", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -124,7 +135,11 @@ public class MessageActivity extends AppCompatActivity {
                     if(success){
 
                         Toast.makeText(MessageActivity.this,"Mesaj trimis.",Toast.LENGTH_LONG).show();
-
+                        ChatMessage chmessage = new ChatMessage(Calendar.getInstance().getTime(),myCalendar.getTime(),message,Teacher.teacher.Name,type);
+                        Teacher.teacher.selectedClass.messages.add(chmessage);
+                        ExpireDate=null;
+                        button.setText("Selectati data");
+                        etMessage.setText("");
                     }
                     else{
                         AlertDialog.Builder alert = new AlertDialog.Builder(MessageActivity.this);
@@ -136,9 +151,6 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         };
-        String CID = Teacher.teacher.selectedClass.CID.toString();
-        String TID = Teacher.teacher.TID;
-        String Name = Teacher.teacher.Name;
 
         _Chat_Upload chat_Request = new _Chat_Upload(message,CID,TID,Name,type.toString(),ExpireDate,responseListener);
         RequestQueue chat_Queue = Volley.newRequestQueue(MessageActivity.this);

@@ -74,6 +74,8 @@ public class CatalogActivity extends AppCompatActivity
 
     private void ToGrades()
     {
+        selectedPage=Pages.Grades;
+
         GradesAdapter adapter = new GradesAdapter(this, gradesList);
         lv1.setAdapter(adapter);
 
@@ -81,13 +83,15 @@ public class CatalogActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                Remove(null,gradesList.get(position));
+                Remove(gradesList.get(position));
             }
         });
     }
 
     private void ToPresences()
     {
+        selectedPage=Pages.Presences;
+
         PresencesAdapter adapter = new PresencesAdapter(this, presenecesList);
         lv1.setAdapter(adapter);
 
@@ -95,13 +99,15 @@ public class CatalogActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                Remove(presenecesList.get(position),null);
+                Remove(presenecesList.get(position));
             }
         });
     }
 
     private void ToMessages()
     {
+        selectedPage=Pages.Messages;
+
         ChatAdapter adapter = new ChatAdapter(this, Teacher.teacher.selectedClass.messages);
         lv1.setAdapter(adapter);
 
@@ -110,7 +116,7 @@ public class CatalogActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 //TODO: Duncea pls. O duncea frumos, O duncea frumos. Fuck me, daddy. FIXME: 2/21/2017 
-                Remove(null,gradesList.get(position));
+               // Remove(Teacher.teacher.selectedClass.messages.get(position));
             }
         });
     }
@@ -186,8 +192,9 @@ public class CatalogActivity extends AppCompatActivity
                             if(GState==1)
                                 SBName+="(X)In Asteptare";
 
-                            gradesList.add(new Grades(GID, GValue,SBName, date));
+                            gradesList.add(new Grades(GID, GValue,SBName, date, GState));
                         }
+                        RefreshLists(Pages.Grades);
 
                     }
                     else{
@@ -218,30 +225,19 @@ public class CatalogActivity extends AppCompatActivity
             ToMessages();
     }
 
-    private void Remove(Presences p,Grades g)
-    {
-        Integer ID=0;
-        String Type;
+    private void Remove(Presences p) {
+            if (!p.PValue)
+                SendRemove(p.PID,"Presence",p,null);
+    }
 
-        if(p!=null)
-        {
-            if (!p.PValue) {
-                p.PValue = true;
+    private void Remove(Grades g) {
+        if(g.GState==0)
+            SendRemove(g.GID,"Grade",null,g);
+        else if(g.GState==1)
+            Toast.makeText(this, "In asteptare", Toast.LENGTH_SHORT).show();
+    }
 
-                ID = p.PID;
-                Type = "Presence";
-            }
-            else
-                return;
-        }
-        else
-        {
-            gradesList.remove(g);
-
-            ID = g.GID;
-            Type = "Grade";
-        }
-
+    private void SendRemove (Integer ID,String Type,final Presences p, final Grades g){
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -258,14 +254,17 @@ public class CatalogActivity extends AppCompatActivity
                         if(Type.equals("Grade"))
                         {
                             RefreshLists(Pages.Grades);
+                            g.SbName=g.SbName +"(X)In Asteptare";
+                            g.GState = 1;
                             Toast.makeText(CatalogActivity.this, "Nota trimisa", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
                             RefreshLists(Pages.Presences);
+                            p.PValue = true;
+                            Toast.makeText(CatalogActivity.this, "Absenta motivata", Toast.LENGTH_SHORT).show();
                         }
-                        Toast.makeText(CatalogActivity.this, "Absenta motivata", Toast.LENGTH_SHORT).show();
-
+                        
                     } else {
                         AlertDialog.Builder alert = new AlertDialog.Builder(CatalogActivity.this);
                         alert.setMessage("Eroare").setNegativeButton("Inapoi", null).create().show();
@@ -273,16 +272,12 @@ public class CatalogActivity extends AppCompatActivity
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
             }
         };
 
         _Catalog_Upload catalog_Request = new _Catalog_Upload(ID.toString(),Type, responseListener);
         RequestQueue catalog_Queue = Volley.newRequestQueue(CatalogActivity.this);
         catalog_Queue.add(catalog_Request);
-
-
     }
 
 }

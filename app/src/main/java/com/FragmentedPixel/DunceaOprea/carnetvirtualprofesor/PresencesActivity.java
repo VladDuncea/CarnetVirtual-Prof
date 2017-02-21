@@ -48,6 +48,7 @@ public class PresencesActivity extends AppCompatActivity {
             {
 
                 //PopulateList();
+                Toast.makeText(PresencesActivity.this, "Absenta", Toast.LENGTH_SHORT).show();
                 Presence(Teacher.teacher.selectedClass.students.get(position).stID);
             }
         });
@@ -93,7 +94,7 @@ public class PresencesActivity extends AppCompatActivity {
         };
         String CValue = Teacher.teacher.selectedClass.CValue.toString();
         String TID = Teacher.teacher.TID;
-        String SBName = Teacher.teacher.selectedClass.subjects.get(0); //TODO Materie selectata
+        String SBName = Teacher.teacher.selectedSubject;
 
         _Presence_Upload presence_Request = new _Presence_Upload(STID.toString(),CValue,TID,SBName,df.format(date),responseListener);
         RequestQueue presence_Queue = Volley.newRequestQueue(PresencesActivity.this);
