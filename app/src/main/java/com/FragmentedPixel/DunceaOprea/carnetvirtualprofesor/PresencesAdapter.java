@@ -36,7 +36,7 @@ class PresencesAdapter extends ArrayAdapter<Presences>
             gradeBox.setText(presences.PSBName + " - " +sdf.format(presences.PDate));
             gradeBox.setChecked(presences.PValue);
         }
-        return convertView;
+        return convertView;//
     }
 }
 
