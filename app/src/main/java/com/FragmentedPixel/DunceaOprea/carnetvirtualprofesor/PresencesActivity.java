@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +27,7 @@ import java.util.Locale;
 
 public class PresencesActivity extends AppCompatActivity {
 
-
+    ArrayList<Integer> studentsIDs = new ArrayList<>();
     ArrayList<Student> students = new ArrayList<>();
 
     @Override
@@ -42,16 +44,29 @@ public class PresencesActivity extends AppCompatActivity {
 
         PopulateList();
         ListView studentsList = (ListView) findViewById(R.id.students_list);
+
         studentsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
+                CheckBox box = (CheckBox)view.findViewById(R.id.presence_checkBox);
+                if(!box.isChecked())
+                    studentsIDs.add(Teacher.teacher.selectedClass.students.get(position).stID);
+                else
+                    studentsIDs.remove(Teacher.teacher.selectedClass.students.get(position).stID);
 
-                //PopulateList();
-                Toast.makeText(PresencesActivity.this, "Absenta", Toast.LENGTH_SHORT).show();
-                Presence(Teacher.teacher.selectedClass.students.get(position).stID);
+                box.setChecked(!box.isChecked());
             }
         });
+
+        Button submitebtn = (Button) findViewById(R.id.presences_submit_butotn);
+        submitebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Presence();
+            }
+        });
+
     }
 
     private void PopulateList()
@@ -61,10 +76,11 @@ public class PresencesActivity extends AppCompatActivity {
         studentsList.setAdapter(adapter);
     }
 
-    private void Presence(Integer STID)
+    private void Presence()
     {
         Date date = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("YYYY/MM/dd HH:mm", Locale.getDefault());
+        Toast.makeText(this, "Am ajuns aici pls fix me", Toast.LENGTH_SHORT).show();
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -78,8 +94,8 @@ public class PresencesActivity extends AppCompatActivity {
                     }
                     boolean success = jsonResponse.getBoolean("success");
                     if(success){
-
-                        Toast.makeText(PresencesActivity.this,"Absenta trimisa",Toast.LENGTH_LONG).show();
+                        for(Integer i : studentsIDs)
+                            Toast.makeText(PresencesActivity.this,"Absenta trimisa",Toast.LENGTH_SHORT).show();
 
                     }
                     else{
@@ -96,7 +112,7 @@ public class PresencesActivity extends AppCompatActivity {
         String TID = Teacher.teacher.TID;
         String SBName = Teacher.teacher.selectedSubject;
 
-        _Presence_Upload presence_Request = new _Presence_Upload(STID.toString(),CValue,TID,SBName,df.format(date),responseListener);
+        _Presence_Upload presence_Request = new _Presence_Upload(studentsIDs,CValue,TID,SBName,df.format(date),responseListener);
         RequestQueue presence_Queue = Volley.newRequestQueue(PresencesActivity.this);
         presence_Queue.add(presence_Request);
     }

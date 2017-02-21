@@ -29,12 +29,6 @@ class StudentsAdapter extends ArrayAdapter<Student>
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.presence_item, parent, false);
 
         final CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.presence_checkBox);
-        checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkBox.setChecked(true);
-            }
-        });
 
         if(student != null)
            checkBox.setText(student.stName + " " + student.stForname);
