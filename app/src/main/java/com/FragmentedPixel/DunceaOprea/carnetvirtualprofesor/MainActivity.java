@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         for (String c : classesList)
                 arraySpinner.add(c);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arraySpinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,  R.layout.simple_spinner_item, arraySpinner);
         classesSpinner.setAdapter(adapter);
 
         classesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         for (String c : subjectsList)
             arraySpinner.add(c);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arraySpinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.simple_spinner_item, arraySpinner);
         subjectsSpinner.setAdapter(adapter);
 
         subjectsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
