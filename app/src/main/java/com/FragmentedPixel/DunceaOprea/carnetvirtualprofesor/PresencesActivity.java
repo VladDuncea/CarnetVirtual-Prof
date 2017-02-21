@@ -97,7 +97,7 @@ public class PresencesActivity extends AppCompatActivity {
                     if(success){
                         if(all) {
                             Toast.makeText(PresencesActivity.this, "Absente trimise", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(PresencesActivity.this,MainActivity.class));
+                            finish();
                         }
                         else
                             Toast.makeText(PresencesActivity.this,"Eroare la un elev",Toast.LENGTH_SHORT).show();
