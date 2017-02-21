@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:id="@+id/gdate_textView" />
+        android:id="@+id/gdate_textView"
+        android:textSize="18sp" />
 
     <TextView
         android:text="Subject"
@@ -16,7 +17,8 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:id="@+id/gsubject_textView"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="18sp" />
 
     <TextView
         android:text="Value"
@@ -24,5 +26,6 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:id="@+id/gvalue_textView"
-        android:textAlignment="textEnd" />
+        android:textAlignment="textEnd"
+        android:textSize="18sp" />
 </LinearLayout>
