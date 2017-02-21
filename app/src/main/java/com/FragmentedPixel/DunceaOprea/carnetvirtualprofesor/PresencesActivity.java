@@ -1,5 +1,6 @@
 package com.FragmentedPixel.DunceaOprea.carnetvirtualprofesor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -80,7 +81,6 @@ public class PresencesActivity extends AppCompatActivity {
     {
         Date date = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("YYYY/MM/dd HH:mm", Locale.getDefault());
-        Toast.makeText(this, "Am ajuns aici pls fix me", Toast.LENGTH_SHORT).show();
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -93,10 +93,14 @@ public class PresencesActivity extends AppCompatActivity {
                         alert.setMessage("Maintenance").setNegativeButton("Inapoi",null).create().show();
                     }
                     boolean success = jsonResponse.getBoolean("success");
+                    boolean all = jsonResponse.getBoolean("all");
                     if(success){
-                        for(String i : studentsIDs)
-                            Toast.makeText(PresencesActivity.this,i,Toast.LENGTH_SHORT).show();
-
+                        if(all) {
+                            Toast.makeText(PresencesActivity.this, "Absente trimise", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PresencesActivity.this,MainActivity.class));
+                        }
+                        else
+                            Toast.makeText(PresencesActivity.this,"Eroare la un elev",Toast.LENGTH_SHORT).show();
                     }
                     else{
                         AlertDialog.Builder alert = new AlertDialog.Builder(PresencesActivity.this);
