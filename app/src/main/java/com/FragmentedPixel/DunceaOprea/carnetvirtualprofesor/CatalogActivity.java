@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -33,12 +34,14 @@ public class CatalogActivity extends AppCompatActivity
     private Pages selectedPage=Pages.Grades;
 
     ListView lv1;
+    TextView current_page;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
         lv1 = (ListView) findViewById(R.id.lv1);
+        current_page = (TextView) findViewById(R.id.catalog_pagina_actuala);
 
         lv1.setOnTouchListener(new OnSwipeTouchListener(CatalogActivity.this)
         {
@@ -75,6 +78,7 @@ public class CatalogActivity extends AppCompatActivity
     private void ToGrades()
     {
         selectedPage=Pages.Grades;
+        current_page.setText(selectedPage.toString());
 
         GradesAdapter adapter = new GradesAdapter(this, gradesList);
         lv1.setAdapter(adapter);
@@ -91,6 +95,7 @@ public class CatalogActivity extends AppCompatActivity
     private void ToPresences()
     {
         selectedPage=Pages.Presences;
+        current_page.setText(selectedPage.toString());
 
         PresencesAdapter adapter = new PresencesAdapter(this, presenecesList);
         lv1.setAdapter(adapter);
@@ -107,6 +112,7 @@ public class CatalogActivity extends AppCompatActivity
     private void ToMessages()
     {
         selectedPage=Pages.Messages;
+        current_page.setText(selectedPage.toString());
 
         ChatAdapter adapter = new ChatAdapter(this, Teacher.teacher.selectedClass.messages);
         lv1.setAdapter(adapter);
@@ -115,7 +121,6 @@ public class CatalogActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                //TODO: Duncea pls. O duncea frumos, O duncea frumos. Fuck me, daddy. FIXME: 2/21/2017 
                Remove(Teacher.teacher.selectedClass.messages.get(position));
             }
         });
@@ -195,6 +200,8 @@ public class CatalogActivity extends AppCompatActivity
                             gradesList.add(new Grades(GID, GValue,SBName, date, GState));
                         }
                         RefreshLists(selectedPage);
+                        current_page.setText(selectedPage.toString());
+
 
                     }
                     else{

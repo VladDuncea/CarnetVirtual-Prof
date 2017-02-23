@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,11 @@ import java.util.Locale;
 
 public class GradesActivity extends AppCompatActivity {
 
+    private SeekBar seekBar;
+    private TextView textView;
+    Integer progress =0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +41,25 @@ public class GradesActivity extends AppCompatActivity {
         SetUp();
         SetStudentsSpinner();
 
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+           @Override
+           public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
+               progress =progresValue;
+               textView.setText("Nota "+progress);
+           }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+
+        });
         Button submiteButton = (Button) findViewById(R.id.grade_submit_button);
         submiteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +71,10 @@ public class GradesActivity extends AppCompatActivity {
 
     private void SetUp()
     {
+        seekBar = (SeekBar) findViewById(R.id.seekBar1);
+
+        textView = (TextView) findViewById(R.id.nota_TextView);
+        textView.setText("Alegeti o nota");
         TextView header = (TextView) findViewById(R.id.classHeader_textView);
         header.setText(Teacher.teacher.selectedClass.CName);
 
@@ -75,12 +104,9 @@ public class GradesActivity extends AppCompatActivity {
         Integer STID = Teacher.teacher.selectedClass.students.get(index).stID;
         Boolean eTeza = ((CheckBox) findViewById(R.id.teza_checkBox)).isChecked();
         Date dateNow =  Calendar.getInstance().getTime();
-        EditText text_nota = (EditText) findViewById(R.id.nota_editText);
-        String nota = text_nota.getText().toString();
-        text_nota.setText("");
-        if(nota.equals(""))
+        if(progress ==0)
         {
-            Toast.makeText(this, "Introduceti o nota", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Selectati nota", Toast.LENGTH_SHORT).show();
             return;
         }
             Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -94,7 +120,7 @@ public class GradesActivity extends AppCompatActivity {
                         }
                         boolean success = jsonResponse.getBoolean("success");
                         if (success) {
-
+                            seekBar.setProgress(0);
                             Toast.makeText(GradesActivity.this, "Nota trimisa.", Toast.LENGTH_SHORT).show();
 
                         } else {
@@ -110,9 +136,9 @@ public class GradesActivity extends AppCompatActivity {
             String TID = Teacher.teacher.TID;
             String CValue = Teacher.teacher.selectedClass.CValue.toString();
             String SBName = Teacher.teacher.selectedSubject;
-            SimpleDateFormat df = new SimpleDateFormat("YYYY/MM/dd HH:mm", Locale.getDefault());
+            SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.getDefault());
 
-            _Grade_Upload grade_Request = new _Grade_Upload(STID.toString(), nota, TID, SBName, df.format(dateNow), CValue, eTeza.toString(), responseListener);
+            _Grade_Upload grade_Request = new _Grade_Upload(STID.toString(), progress.toString(), TID, SBName, df.format(dateNow), CValue, eTeza.toString(), responseListener);
             RequestQueue grade_Queue = Volley.newRequestQueue(GradesActivity.this);
             grade_Queue.add(grade_Request);
 

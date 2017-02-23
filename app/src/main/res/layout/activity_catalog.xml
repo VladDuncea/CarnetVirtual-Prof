@@ -26,6 +26,14 @@
         android:layout_below="@+id/CatalogHeader_TextView"
         android:layout_centerHorizontal="true"
         android:id="@+id/catalog_elevi_spinner" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:id="@+id/catalog_pagina_actuala"
+        android:layout_below="@+id/catalog_elevi_spinner"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -33,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="1"
-        android:layout_below="@+id/catalog_elevi_spinner">
+        android:layout_below="@+id/catalog_pagina_actuala">
 
         <RelativeLayout
             android:id="@+id/rl_ListView1"
