@@ -51,7 +51,7 @@ public class GradesActivity extends AppCompatActivity {
 
         TextView date = (TextView) findViewById(R.id.date_textView);
 
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/YY", Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         date.setText(df.format(Calendar.getInstance().getTime()));
     }
 
