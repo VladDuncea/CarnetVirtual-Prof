@@ -1,5 +1,7 @@
 package com.FragmentedPixel.DunceaOprea.carnetvirtualprofesor;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class CatalogActivity extends AppCompatActivity
+public class CatalogActivity extends Activity
 {
     private ArrayList<Grades> gradesList;
     private ArrayList<Presences> presenecesList;
@@ -200,7 +202,7 @@ public class CatalogActivity extends AppCompatActivity
                             gradesList.add(new Grades(GID, GValue,SBName, date, GState));
                         }
                         RefreshLists(selectedPage);
-                        current_page.setText(selectedPage.toString());
+                        current_page.setText("Note");
 
 
                     }
@@ -233,20 +235,101 @@ public class CatalogActivity extends AppCompatActivity
     }
 
     private void Remove(Presences p) {
-            if (!p.PValue)
-                SendRemove(p.PID,"Presence",p,null,null);
+        final Presences pres = p;
+        AlertDialog.Builder builder = new AlertDialog.Builder(CatalogActivity.this);
+
+        builder.setTitle("Confirmare");
+        builder.setMessage("Esit sigur?");
+
+        builder.setNegativeButton("Nu", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.setPositiveButton("Da", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+
+                if (!pres.PValue)
+                    SendRemove(pres.PID,"Presence",pres,null,null);
+
+                dialog.dismiss();
+            }
+        });
+
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void Remove(Grades g) {
-        if(g.GState==0)
-            SendRemove(g.GID,"Grade",null,g,null);
-        else if(g.GState==1)
-            Toast.makeText(this, "In asteptare", Toast.LENGTH_SHORT).show();
+        final Grades grade = g;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(CatalogActivity.this);
+
+        builder.setTitle("Confirmare");
+        builder.setMessage("Esit sigur?");
+
+        builder.setNegativeButton("Nu", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.setPositiveButton("Da", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+
+                if(grade.GState==0)
+                    SendRemove(grade.GID,"Grade",null,grade,null);
+                else if(grade.GState==1)
+                    Toast.makeText(getApplicationContext(), "In asteptare", Toast.LENGTH_SHORT).show();
+
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
     }
 
     private void Remove(ChatMessage cm)
     {
-        SendRemove(cm.CHID, "Message", null, null, cm);
+        final ChatMessage message = cm;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(CatalogActivity.this);
+
+        builder.setTitle("Confirmare");
+        builder.setMessage("Esit sigur?");
+
+        builder.setNegativeButton("Nu", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.setPositiveButton("Da", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+
+
+                SendRemove(message.CHID, "Message", null, null, message);
+
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
     }
 
     private void SendRemove (Integer ID,String Type,final Presences p, final Grades g,final ChatMessage cm){
