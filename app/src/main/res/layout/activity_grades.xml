@@ -52,15 +52,25 @@
         android:layout_alignParentStart="true"
         android:textSize="18sp" />
 
+    <SeekBar
+        android:id="@+id/seekBar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="20dp"
+        android:max="10"
+        android:layout_alignBottom="@+id/nota_TextView"
+        android:layout_toRightOf="@+id/nota_TextView"
+        android:layout_toEndOf="@+id/nota_TextView" />
+
     <TextView
         android:text="Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/date_textView"
         android:textSize="18sp"
-        android:layout_below="@+id/date_pretext"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/students_Spinner"
+        android:layout_toRightOf="@+id/date_pretext"
+        android:layout_toEndOf="@+id/date_pretext" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -68,18 +78,10 @@
         android:id="@+id/nota_TextView"
         android:hint="Nota"
         android:textSize="20sp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/teza_checkBox"
+        android:layout_marginTop="49dp"
+        android:layout_below="@+id/date_pretext"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-    <SeekBar
-        android:id="@+id/seekBar1"
-        android:layout_below="@+id/nota_TextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:minHeight="20dp"
-        android:max="10"/>
 
     <CheckBox
         android:text="teza"
@@ -88,9 +90,10 @@
         android:id="@+id/teza_checkBox"
         android:textAlignment="viewStart"
         android:textSize="18sp"
-        android:layout_below="@+id/date_textView"
         android:textColor="#ff757575"
+        android:layout_below="@+id/seekBar1"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="38dp" />
 
 </RelativeLayout>

@@ -45,37 +45,6 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:textAllCaps="false" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
-
-        <Spinner
-            android:layout_height="wrap_content"
-            android:id="@+id/classes_spinner"
-            android:background="@color/colorAccent"
-            android:layout_width="match_parent"
-            android:minWidth="150dp"
-            android:minHeight="50dp"
-            android:textSize="20sp"
-            android:textColor="#ffffff"
-            android:gravity="center_vertical" />
-
-        <Spinner
-            android:layout_height="wrap_content"
-            android:id="@+id/materii_spinner"
-            android:background="@color/colorAccent"
-            android:layout_width="match_parent"
-            android:minWidth="150dp"
-            android:minHeight="50dp"
-            android:textSize="20sp"
-            android:layout_marginTop="1sp"
-            android:textColor="#ffffff"
-            android:gravity="center_vertical" />
-    </LinearLayout>
-
     <Button
         android:text="Nota"
         android:layout_width="wrap_content"
@@ -87,5 +56,39 @@
         android:layout_alignParentEnd="true"
         style="@style/Widget.AppCompat.Button.Colored"
         android:textAllCaps="false" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <Spinner
+            android:layout_height="wrap_content"
+            android:id="@+id/materii_spinner"
+            android:background="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:minWidth="150dp"
+            android:minHeight="50dp"
+            android:textSize="20sp"
+            android:textColor="#ffffff"
+            android:gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:layout_weight="1" />
+
+        <Spinner
+            android:layout_height="wrap_content"
+            android:id="@+id/classes_spinner"
+            android:background="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:minWidth="150dp"
+            android:minHeight="50dp"
+            android:textSize="20sp"
+            android:textColor="#ffffff"
+            android:gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:layout_weight="1" />
+    </LinearLayout>
 
 </RelativeLayout>
