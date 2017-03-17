@@ -78,7 +78,7 @@ public class CatalogActivity extends AppCompatActivity
     private void ToGrades()
     {
         selectedPage=Pages.Grades;
-        current_page.setText(selectedPage.toString());
+        current_page.setText("Note");
 
         GradesAdapter adapter = new GradesAdapter(this, gradesList);
         lv1.setAdapter(adapter);
@@ -95,7 +95,7 @@ public class CatalogActivity extends AppCompatActivity
     private void ToPresences()
     {
         selectedPage=Pages.Presences;
-        current_page.setText(selectedPage.toString());
+        current_page.setText("Absente");
 
         PresencesAdapter adapter = new PresencesAdapter(this, presenecesList);
         lv1.setAdapter(adapter);
@@ -112,7 +112,7 @@ public class CatalogActivity extends AppCompatActivity
     private void ToMessages()
     {
         selectedPage=Pages.Messages;
-        current_page.setText(selectedPage.toString());
+        current_page.setText("Mesaje");
 
         ChatAdapter adapter = new ChatAdapter(this, Teacher.teacher.selectedClass.messages);
         lv1.setAdapter(adapter);

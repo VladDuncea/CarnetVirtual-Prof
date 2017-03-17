@@ -10,5 +10,6 @@
         android:id="@+id/presence_checkBox"
         android:textColor="#ff757575"
         android:focusable="false"
-        android:clickable="false" />
+        android:clickable="false"
+        android:textSize="24sp"/>
 </LinearLayout>
