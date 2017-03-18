@@ -90,6 +90,16 @@ public class MessageActivity extends AppCompatActivity {
         final String TID = Teacher.teacher.TID;
         String Name = Teacher.teacher.Name;
 
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.message_type_radio);
+        int id = radioGroup.getCheckedRadioButtonId();
+        RadioButton radioBtn = (RadioButton) radioGroup.findViewById(id);
+        if(radioBtn.getText().equals("Mesaj"))
+            type = 1 ;
+        else if(radioBtn.getText().equals("Teza"))
+            type = 2;
+        else
+            type = 3;
+
         if(message.equals("")||ExpireDate==null)
         {
             Toast.makeText(this, "Introduceti un mesaj si selectati data", Toast.LENGTH_SHORT).show();
@@ -111,18 +121,6 @@ public class MessageActivity extends AppCompatActivity {
 
                         Toast.makeText(MessageActivity.this,"Mesaj trimis.",Toast.LENGTH_LONG).show();
 
-                        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.message_type_radio);
-                        int id = radioGroup.getCheckedRadioButtonId();
-                        RadioButton radioBtn = (RadioButton) radioGroup.findViewById(id);
-
-                        if(radioBtn.getText().equals("Mesaj"))
-                            type = 1 ;
-                        else if(radioBtn.getText().equals("Teza"))
-                            type = 2;
-                        else
-                            type = 3;
-
-                        Toast.makeText(getApplicationContext(), " " + type, Toast.LENGTH_SHORT).show();
 
                         ChatMessage chmessage = new ChatMessage(0,Calendar.getInstance().getTime(),myCalendar.getTime(),message,Teacher.teacher.Name,type);
                         Teacher.teacher.selectedClass.messages.add(chmessage);
