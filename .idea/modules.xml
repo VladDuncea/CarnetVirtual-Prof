@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CarnetVirtual-prof.iml" filepath="$PROJECT_DIR$/CarnetVirtual-prof.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CarnetVirtual-prof-grading.iml" filepath="$PROJECT_DIR$/CarnetVirtual-prof-grading.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

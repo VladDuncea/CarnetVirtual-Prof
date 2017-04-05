@@ -3,6 +3,7 @@ package com.FragmentedPixel.DunceaOprea.carnetvirtualprofesor;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -35,6 +36,7 @@ class Refresh {
                     boolean success = jsonResponse.getBoolean("success");
                     boolean is_email_right = jsonResponse.getBoolean("is_email_right");
                     boolean is_password_right = jsonResponse.getBoolean("is_password_right");
+                    boolean has_classes = jsonResponse.getBoolean("has_classes");
                     if(success){
 
                         if (!is_email_right)
@@ -47,14 +49,20 @@ class Refresh {
                             AlertDialog.Builder alert = new AlertDialog.Builder(context);
                             alert.setMessage("Parola e necorespunzatoare.").setNegativeButton("Inapoi",null).create().show();
                         }
+                        if(!has_classes)
+                        {
+                            AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                            alert.setMessage("Momentan nu sunteti alocat niciunei clase.").setNegativeButton("Inapoi",null).create().show();
+                        }
                         else
                         {
                             Integer NRClasses = jsonResponse.getInt("NRClasses");
+
+
                             String TID = jsonResponse.getString("TID");
                             String TName = jsonResponse.getString("TName");
                             String TFirstName = jsonResponse.getString("TFirstName");
                             Boolean TIsMaster = jsonResponse.getBoolean("TIsMaster");
-
                             Serialization.saveSerializable(context);
 
                             ArrayList<Classes> teacherClasses = new ArrayList<>();

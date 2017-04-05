@@ -75,7 +75,7 @@ public class MessageActivity extends AppCompatActivity {
 
     private void updateLabel() {
         button = (Button)findViewById(R.id.button_date);
-        String myFormat = "yyyy-MM-dd HH:mm";
+        String myFormat = "yyyy-MM-dd";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
         ExpireDate =sdf.format(myCalendar.getTime());
         button.setText(ExpireDate);
