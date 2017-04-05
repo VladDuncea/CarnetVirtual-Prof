@@ -34,6 +34,8 @@ public class LoginActivity extends Activity
         });
     }
 
+
+    public ProgressDialog pg = null;
     private void ProgressBar()
     {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -58,8 +60,8 @@ public class LoginActivity extends Activity
                 if(Serialization.serialization == null)
                     LogIn();
                 else
-                    Refresh.LogIn(LoginActivity.this,Serialization.serialization.email,Serialization.serialization.password);
-                    progressDialog.dismiss();
+                    pg=progressDialog;
+                    Refresh.LogIn(LoginActivity.this,Serialization.serialization.email,Serialization.serialization.password,pg);
             }
         }).start();
     }
@@ -74,7 +76,7 @@ public class LoginActivity extends Activity
 
         new Serialization(mEmail, mPassword);
 
-        Refresh.LogIn(LoginActivity.this, mEmail, mPassword);
+        Refresh.LogIn(LoginActivity.this, mEmail, mPassword,pg);
     }
 }
 

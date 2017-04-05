@@ -80,7 +80,7 @@ public class PresencesActivity extends AppCompatActivity {
     private void Presence()
     {
         Date date = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("YYYY/MM/dd HH:mm", Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat("yy/MM/dd HH:mm", Locale.getDefault());
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override

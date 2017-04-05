@@ -1,5 +1,6 @@
 package com.FragmentedPixel.DunceaOprea.carnetvirtualprofesor;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -21,7 +22,7 @@ import java.util.Locale;
 
 
 class Refresh {
-    static void LogIn(final Context context, final String Email, final String Password) {
+    static void LogIn(final Context context, final String Email, final String Password, final ProgressDialog pg) {
 
         Response.Listener<String> loginListener = new Response.Listener<String>() {
             @Override
@@ -30,6 +31,7 @@ class Refresh {
                     JSONObject jsonResponse = new JSONObject(response);
                     if(!jsonResponse.getBoolean("success"))
                     {
+                        pg.dismiss();
                         AlertDialog.Builder alert = new AlertDialog.Builder(context);
                         alert.setMessage("Maintenance").setNegativeButton("Inapoi",null).create().show();
                     }
@@ -41,16 +43,19 @@ class Refresh {
 
                         if (!is_email_right)
                         {
+                            pg.dismiss();
                             AlertDialog.Builder alert = new AlertDialog.Builder(context);
                             alert.setMessage("Email-ul e gresit.").setNegativeButton("Inapoi",null).create().show();
                         }
                         else if (!is_password_right)
                         {
+                            pg.dismiss();
                             AlertDialog.Builder alert = new AlertDialog.Builder(context);
                             alert.setMessage("Parola e necorespunzatoare.").setNegativeButton("Inapoi",null).create().show();
                         }
                         if(!has_classes)
                         {
+                            pg.dismiss();
                             AlertDialog.Builder alert = new AlertDialog.Builder(context);
                             alert.setMessage("Momentan nu sunteti alocat niciunei clase.").setNegativeButton("Inapoi",null).create().show();
                         }
@@ -114,15 +119,18 @@ class Refresh {
                                 teacherClasses.add(new Classes(CID,CValue,CName,CMaster,classesSubject,teacherStudent,messages ));
                             }
                             new Teacher(TID,TName,TFirstName,TIsMaster,teacherClasses);
+                            pg.dismiss();
                             context.startActivity(new Intent(context, MainActivity.class));
 
                         }
                     }
                     else{
+                        pg.dismiss();
                         AlertDialog.Builder alert = new AlertDialog.Builder(context);
                         alert.setMessage("Ups.. S-a intamplat ceva neprevazut").setNegativeButton("Inapoi",null).create().show();
                     }
                 } catch (JSONException | ParseException e) {
+                    pg.dismiss();
                     e.printStackTrace();
                 }
 
